@@ -80,7 +80,7 @@ public class CLI implements Serializable {
                     "- 2 : Retirer de l'argent \n" +
                     "- 3 : Transférer de l'argent \n" +
                     "- 4 : Afficher le solde de votre compte bancaire \n" +
-                    "- 5 : Afficher l'historique du compte" +
+                    "- 5 : Afficher l'historique du compte \n" +
                     "- 6 : Se déconnecter \n" +
                     "- 7 : Sortir du système");
             int choix = scanner.nextInt();
@@ -90,14 +90,12 @@ public class CLI implements Serializable {
                     System.out.println("Entrer la valeur à dépôser");
                     int valueDeposit = scanner.nextInt();
                     listUser.get(nbIndex).deposit(valueDeposit);
-                    System.out.println("Vous avez dépôser : " + valueDeposit + "euro.s !");
                     break;
 
                 case 2 :
                     System.out.println("Entrer la valeur à retirer");
-                    int valueWithdrawal = scanner.nextInt();
+                    Double valueWithdrawal = scanner.nextDouble();
                     listUser.get(nbIndex).withdrawal(valueWithdrawal);
-                    System.out.println("Vous avez retirer : " + valueWithdrawal + "euro.s !");
                     break;
 
                 case 3 :
@@ -121,7 +119,8 @@ public class CLI implements Serializable {
                     break;
 
                 case 5 :
-                    // historique du compte
+                    listUser.get(nbIndex).historyOfTransaction();
+                    break;
 
                 case 6:
                     System.out.println("Deconnexion !");

@@ -9,12 +9,7 @@ public class FileGestion implements Serializable {
     public void createFileWithVerif(String s){
         File myObj=new File(s);
         try {
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " +
-                        myObj.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
+            myObj.createNewFile();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -178,6 +173,10 @@ public class FileGestion implements Serializable {
         throw new RuntimeException("Le compte n'existe pas !");
     }
 
+    public boolean fileExist(String fileName) {
+        File file = new File(fileName);
+        return file.exists();
+    }
 
 
 }

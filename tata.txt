@@ -1,0 +1,5 @@
+Dépôt : 10.0 | Solde avant dépôt : 0.0 | Solde après dépôt : 10.0
+Dépôt : 0.0 | Solde avant dépôt : 10.0 | Solde après dépôt : 10.0
+Retrait : 0.0 | Solde avant retrait : 10.0 | Solde après retrait : 10.0
+Transfert : 5.0 | Solde avant transfert : 10.0 | Solde après transfert : 5.0 | Bénéficiare : toto
+Reçu : 10.0 | Solde avant réception : 10.0 | Solde après réception : 20.0 | Transmetteur : toto

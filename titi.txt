@@ -1,0 +1,1 @@
+Retrait : 0.1 | Solde avant retrait : 10.1 | Solde après retrait : 10.0
