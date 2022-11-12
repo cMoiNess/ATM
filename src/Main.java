@@ -1,12 +1,13 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String[] args) {
-        User yanis = new User();
-        User jb = new User();
-        Admin admin = new Admin();
-        admin.depositOtherAccount(100, yanis);
-        System.out.println(yanis.getBalance());
-        admin.transferOtherAccount(1020, yanis, jb);
-        System.out.println(yanis.getBalance());
-        System.out.println(jb.getBalance());
+    public static void main(String[] args) throws FileNotFoundException {
+        CLI cli = new CLI();
+        cli.powerCLI();
     }
 }

@@ -1,8 +1,18 @@
-public class User extends BankAccount {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class User extends BankAccount implements Serializable {
 
     double balance;
 
-    public User() {}
+    public User() {
+    }
+
+
+    public User(String login, int pin) {
+        super(login, pin);
+        this.balance = 0;
+    }
 
     public User(String login, int pin, double balance) {
         super(login, pin);
@@ -15,11 +25,19 @@ public class User extends BankAccount {
         this.balance = balance;
     }
 
+    public void setLogin(String login) {super.login = login;}
+
+    public void setPin(int pin) {super.pin = pin;}
+
     // ---- Getter
 
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
+
+    public String getLogin() {return super.login;}
+
+    public int getPin() {return super.pin;}
 
 
     // ---- Methods
@@ -44,19 +62,30 @@ public class User extends BankAccount {
     }
 
     public void transfer(double value, User beneficiary) {
-        if (value < 0) {
-            System.out.println("Vous ne pouvez pas transférer une valeur négative !");
-        } else if (balance - value < 0) {
-            System.out.println("Vous ne pouvez transférer autant d'argent car vous êtes pauvre !");
-        } else {
-            balance -= value;
-            beneficiary.balance += value;
+
+        if (beneficiary instanceof User) {
+            if (value < 0) {
+                System.out.println("Vous ne pouvez pas transférer une valeur négative !");
+            } else if (balance - value < 0) {
+                System.out.println("Vous ne pouvez transférer autant d'argent car vous êtes pauvre !");
+            } else {
+                balance -= value;
+                beneficiary.balance += value;
+            }
+            // Implémente vérification si user existe
         }
+    }
+
+    public String toString() {
+        return super.login + " : " + super.pin + " : " + this.balance;
     }
 
 
     // Méthode à voir plus tard, compléter les méthodes précédentes également
-    public String historyOfTransaction() {return "toto";}
+    public String historyOfTransaction() {
+        return "toto";
+    }
+
 }
 
 
