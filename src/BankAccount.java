@@ -2,7 +2,7 @@ public class BankAccount {
     String login;
     int pin;
 
-    // ---- Constructor
+    // ---- Constructors
 
     public BankAccount() {}
 

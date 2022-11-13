@@ -1,0 +1,9 @@
+Dépôt : 10.0 | Solde avant dépôt : 0.0 | Solde après dépôt : 10.0
+Transfert : 10.0 | Solde avant transfert : 10.0 | Solde après transfert : 0.0 | Bénéficiare : toto
+Opération fait par un admin | Dépôt : 10.0 | Solde avant dépôt : 0.0 | Solde après dépôt : 10.0
+Opération fait par un admin | Dépôt : 10.0 | Solde avant dépôt : 10.0 | Solde après dépôt : 20.0
+Opération fait par un admin | Dépôt : 30.0 | Solde avant dépôt : 20.0 | Solde après dépôt : 50.0
+Opération fait par un admin | Dépôt : 50.0 | Solde avant dépôt : 50.0 | Solde après dépôt : 100.0
+Opération fait par un admin | Retrait : 100.0 | Solde avant retrait : 100.0 | Solde après retrait : 0.0
+Opération fait par un admin | Reçu : 70.0 | Solde avant réception : 0.0 | Solde après réception : 70.0 | Transmetteur : toto
+Opération fait par un admin | Retrait : 70.0 | Solde avant retrait : 70.0 | Solde après retrait : 0.0
