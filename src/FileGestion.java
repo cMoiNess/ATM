@@ -239,4 +239,21 @@ public class FileGestion implements Serializable {
         }
         throw new RuntimeException("Le compte n'existe pas !");
     }
+
+    public void printUsersForAdmin(String fileName) throws FileNotFoundException {
+        File file = new File(fileName);
+        Scanner scanner = new Scanner(file);
+
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+
+            String[] items = line.split("\\|");
+
+            String login = items[0];
+
+            System.out.println(login);
+
+        }
+    }
 }

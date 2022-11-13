@@ -159,8 +159,9 @@ public class CLI implements Serializable {
                     "- 5 : Afficher l'historique d'un compte bancaire \n" +
                     "- 6 : Supprimer un compte bancaire \n" +
                     "- 7 : Créer un nouvel administrateur \n" +
-                    "- 8 : Se déconnecter \n" +
-                    "- 9 : Sortir du système");
+                    "- 8 : Afficher la liste des utilisateurs \n" +
+                    "- 9 : Se déconnecter \n" +
+                    "- 10 : Sortir du système");
             int choix = scanner.nextInt();
 
             switch(choix) {
@@ -272,13 +273,17 @@ public class CLI implements Serializable {
                     }
 
                 case 8:
+                    fileGestion.printUsersForAdmin("user.txt");
+                    break;
+
+                case 9:
                     System.out.println("Deconnexion !");
                     fileGestion.writeToFileObjects("user.txt", listUser);
                     fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin);
                     powerCLI();
                     break;
 
-                case 9:
+                case 10:
                     System.out.println("Aurevoir !");
                     fileGestion.writeToFileObjects("user.txt", listUser);
                     fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin);
