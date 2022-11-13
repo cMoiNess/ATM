@@ -250,7 +250,21 @@ public class CLI implements Serializable {
                     }
 
                 case 6:
-                    // Supprimer un compte bancaire
+                    System.out.println("Entrer le nom du compte que vous voulez supprimer");
+                    String valueCreditDelete = scanner.next();
+
+                    boolean accountOkOrNokDelete = fileGestion.verifAccountExist("user.txt", valueCreditDelete);
+                    if (accountOkOrNokDelete) {
+                        listUser = fileGestion.eraseToFileAnObject("user.txt", listUser, valueCreditDelete);
+                        fileGestion.writeToFileObjects("user.txt", listUser);
+
+                        System.out.println("Supression du compte");
+                        break;
+                    } else {
+                        System.out.println("Le compte n'existe pas !");
+                        break;
+                    }
+
 
                 case 7:
                     System.out.println("Entrer le login du nouvel administrateur");

@@ -157,6 +157,8 @@ public class FileGestion implements Serializable {
         writer.close();
     }
 
+
+
     // Method that allows you to delete the contents of a file and then to write in this file with line break
     public void EraseAndWriteToFileLineBreak(String fileName, String content) {
         File myObj=new File(fileName);
@@ -171,6 +173,22 @@ public class FileGestion implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<User> eraseToFileAnObject(String fileName, ArrayList<User> listUser, String deleteUser) throws FileNotFoundException {
+        eraseToFile(fileName);
+        ArrayList<User> returnListUser = new ArrayList<User>();
+        for (int i = 0; i < listUser.size(); i++) {
+            User userIndex = listUser.get(i);
+            if (!userIndex.getLogin().equals(deleteUser)) {
+                returnListUser.add(listUser.get(i));
+                String outpuText = userIndex.getLogin() + "|" + userIndex.getPin() + "|" + userIndex.getBalance();
+                writeToFileLineBreak(fileName, outpuText); // Write the user i to the backup file
+            }
+        }
+        return returnListUser;
+    }
+
+
 
     // ---- Methods that check in a file
 
@@ -256,4 +274,6 @@ public class FileGestion implements Serializable {
 
         }
     }
+
+
 }
