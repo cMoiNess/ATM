@@ -58,6 +58,7 @@ public class FileGestion implements Serializable {
         writeToFileLineBreak(fileName, outputText); // Write the user to the backup file
     }
 
+    // Method to write an admin user to the backup file
     public void writeToFileAnObjectAdmin(String fileName, Admin objectName) {
         String outputText = objectName.getLogin() + "|" + objectName.getPin();
         writeToFileLineBreak(fileName, outputText); // Write the user to the backup file
@@ -75,6 +76,7 @@ public class FileGestion implements Serializable {
         }
     }
 
+    // Method to write admin users to the backup file
     public void writeToFileObjectsAdmin(String fileName, ArrayList<Admin> listAdmin) throws FileNotFoundException {
         eraseToFile(fileName);
         for (int i = 0; i < listAdmin.size(); i++) {
@@ -258,6 +260,7 @@ public class FileGestion implements Serializable {
         throw new RuntimeException("Le compte n'existe pas !");
     }
 
+    // Method that returns the list of all users
     public void printUsersForAdmin(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
         Scanner scanner = new Scanner(file);
