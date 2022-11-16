@@ -121,7 +121,7 @@ public class CLI implements Serializable {
                     String valueCredit = scanner.next();
                     boolean accountOkOrNok = fileGestion.verifAccountExist("user.txt", valueCredit); //Boolean to check if user and password association matches user database file
                     if (accountOkOrNok) {
-                        int nbIndexCredit = fileGestion.findIndexAccount("user.txt", valueCredit);
+                        int nbIndexCredit = fileGestion.findIndexAccount("user.txt", valueCredit); //User account information stored in index
                         listUser.get(nbIndex).transfer(valueTransfer, listUser.get(nbIndexCredit));
                         break;
                     } else {
@@ -130,22 +130,22 @@ public class CLI implements Serializable {
                     }
 
                 case 4:
-                    System.out.println("Voici le solde de votre compte : " + listUser.get(nbIndex).getBalance());
+                    System.out.println("Voici le solde de votre compte : " + listUser.get(nbIndex).getBalance()); //Check account balance
                     break;
 
                 case 5 :
-                    listUser.get(nbIndex).historyOfTransaction();
+                    listUser.get(nbIndex).historyOfTransaction(); //Check history of transaction
                     break;
 
                 case 6:
                     System.out.println("Déconnexion !");
-                    fileGestion.writeToFileObjects("user.txt", listUser);
+                    fileGestion.writeToFileObjects("user.txt", listUser); //Update database
                     powerCLI();
                     break;
 
                 case 7:
                     System.out.println("Au revoir !");
-                    fileGestion.writeToFileObjects("user.txt", listUser);
+                    fileGestion.writeToFileObjects("user.txt", listUser); //Update database
                     System.exit(0);
 
             }
