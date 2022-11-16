@@ -36,7 +36,7 @@ public class Admin extends BankAccount{
             FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
             String fileName = user.getLogin() + ".txt";
             fileGestion.createFileWithVerif(fileName); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens.
-            fileGestion.writeToFileLineBreak(fileName, "Opération fait par un admin | Retrait : " + value + " | " + "Solde avant retrait : "
+            fileGestion.writeToFileLineBreak(fileName, "Opération fait par l'admin : " + this.getLogin() + " | Retrait : " + value + " | " + "Solde avant retrait : "
                     + oldBalance + " | " + "Solde après retrait : " + user.getBalance()); // We save the transaction in the previous file
         }
     }
@@ -54,7 +54,7 @@ public class Admin extends BankAccount{
             FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
             String fileName = user.getLogin() + ".txt";
             fileGestion.createFileWithVerif(fileName); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens.
-            fileGestion.writeToFileLineBreak(fileName, "Opération fait par un admin | Dépôt : " + value + " | " + "Solde avant dépôt : " + oldBalance + " | " + "Solde après dépôt : " + user.getBalance()); // We save the transaction in the previous file
+            fileGestion.writeToFileLineBreak(fileName, "Opération fait par l'admin : " + this.getLogin() + " | Dépôt : " + value + " | " + "Solde avant dépôt : " + oldBalance + " | " + "Solde après dépôt : " + user.getBalance()); // We save the transaction in the previous file
         }
     }
 
@@ -74,7 +74,7 @@ public class Admin extends BankAccount{
             FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
             String fileName = transmitter.getLogin() + ".txt";
             fileGestion.createFileWithVerif(fileName); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens. For the transmitter's account
-            fileGestion.writeToFileLineBreak(fileName, "Opération fait par un admin | Transfert : " + value + " | " + "Solde avant transfert : "
+            fileGestion.writeToFileLineBreak(fileName, "Opération fait par l'admin : " + this.getLogin() + " | Transfert : " + value + " | " + "Solde avant transfert : "
                     + oldBalanceTransmitter + " | " + "Solde après transfert : " + transmitter.getBalance() + " | " + "Bénéficiare : " + beneficiary.getLogin()); // We save the transaction in the previous file
             fileGestion.createFileWithVerif(beneficiary.getLogin() + ".txt"); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens. For the beneficiary's account
             fileGestion.writeToFileLineBreak(beneficiary.getLogin() + ".txt", "Opération fait par un admin | Reçu : " + value + " | " + "Solde avant réception : "

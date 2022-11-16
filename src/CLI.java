@@ -9,6 +9,7 @@ public class CLI implements Serializable {
     public CLI() {}
 
     public void powerCLI() throws FileNotFoundException {
+
         FileGestion fileGestion = new FileGestion();
         boolean conditionCreationCompte = true;
         boolean conditionUtilisationCompte = true;
