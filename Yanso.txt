@@ -1,0 +1,5 @@
+Dépôt : 0.0 | Solde avant dépôt : 0.0 | Solde après dépôt : 0.0
+Dépôt : 10.0 | Solde avant dépôt : 0.0 | Solde après dépôt : 10.0
+Transfert : 10.0 | Solde avant transfert : 10.0 | Solde après transfert : 0.0 | Bénéficiare : titi
+Dépôt : 60.0 | Solde avant dépôt : 0.0 | Solde après dépôt : 60.0
+Retrait : 10.0 | Solde avant retrait : 60.0 | Solde après retrait : 50.0
