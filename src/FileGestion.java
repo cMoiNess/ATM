@@ -89,19 +89,21 @@ public class FileGestion implements Serializable {
     // ---- Methods that read from a file
 
     // Method to display the content of a file
-    public void readFromFile(String fileName){
+    public String readFromFile(String fileName){
         File myObj=new File(fileName);
+        String out ="";
         try {
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                System.out.println(data);
+                out += data + "\n";
             }
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        return out;
     }
 
     // Method that allows to read the content of a file and that allows to store the users in an ArrayList

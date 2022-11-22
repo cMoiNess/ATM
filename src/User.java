@@ -112,15 +112,15 @@ public class User extends BankAccount implements Serializable {
         }
     }
 
-    public void historyOfTransaction() {
+    public String historyOfTransaction() {
         FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
         String fileName = getLogin() + ".txt";
 
         // We test if the user has already made transactions
         if (fileGestion.fileExist(fileName)) {
-            fileGestion.readFromFile(fileName); // We read the user's transaction file
+            return fileGestion.readFromFile(fileName); // We read the user's transaction file
         } else {
-            System.out.println("Attention, vous n'avez pas encore effectué de transaction sur ce compte !");
+            return "Attention, vous n'avez pas encore effectué de transaction sur ce compte !";
         }
 
     }
