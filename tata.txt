@@ -13,3 +13,4 @@ Opération fait par un admin | Reçu : 15.0 | Solde avant réception : 0.0 | Sol
 Dépôt : 5.0 | Solde avant dépôt : 15.0 | Solde après dépôt : 20.0
 Retrait : 10.0 | Solde avant retrait : 20.0 | Solde après retrait : 10.0
 Opération fait par un admin | Reçu : 5.0 | Solde avant réception : 10.0 | Solde après réception : 15.0 | Transmetteur : titi
+Opération faite par l'admin : admin | Transfert : 10.0 | Solde avant transfert : 10.0 | Solde après transfert : 0.0 | Bénéficiaire : Yanso
