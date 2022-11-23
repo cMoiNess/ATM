@@ -13,8 +13,6 @@ public class SelectionPanel extends JPanel implements ActionListener{
 
 	private boolean history = false;
 	private boolean disconnect = false;
-
-	private boolean exit = false;
 	
 	private String name = " ";
 
@@ -172,10 +170,6 @@ public class SelectionPanel extends JPanel implements ActionListener{
 		name = n;
 		welcome.setText("Welcome, " + name + " Please Make a Selection                                     ");
 		
-	}
-	
-	public String getName(){
-		return name;
 	}
 
 

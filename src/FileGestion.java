@@ -263,9 +263,10 @@ public class FileGestion implements Serializable {
     }
 
     // Method that returns the list of all users
-    public void printUsersForAdmin(String fileName) throws FileNotFoundException {
+    public String printUsersForAdmin(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
         Scanner scanner = new Scanner(file);
+        String out="";
 
 
         while (scanner.hasNextLine()) {
@@ -275,9 +276,10 @@ public class FileGestion implements Serializable {
 
             String login = items[0];
 
-            System.out.println(login);
+            out+= login + "\n";
 
         }
+        return out;
     }
 
 
