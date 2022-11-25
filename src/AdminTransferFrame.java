@@ -6,9 +6,10 @@ public class AdminTransferFrame extends JFrame{
     private AdminTransferPanel adminTransferPanel;
 
     public AdminTransferFrame(){
-        super("Make A Transfer");
+        super("Admin Transfer");
         setSize(375, 200);
         adminTransferPanel = new AdminTransferPanel();
+        setIconImage(LoginFrame.icon.getImage());
         setResizable(false);
         this.setLocation(500, 500);
         add(adminTransferPanel);

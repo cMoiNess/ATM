@@ -11,9 +11,10 @@ public class SelectionFrame extends JFrame{
 			
 			
 			
-			super("ATM Selection screen");
+			super("ATM Selection screen"); // Sets title
 			setSize(375, 200);
 			setResizable(false);
+			setIconImage(LoginFrame.icon.getImage());
 			selectionPanel = new SelectionPanel();
 			this.setLocation(500, 500);
 			add(selectionPanel);

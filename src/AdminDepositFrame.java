@@ -6,8 +6,9 @@ public class AdminDepositFrame extends JFrame{
     private AdminDepositPanel adminDepositPanel;
 
     public AdminDepositFrame(){
-        super("Make A Transfer");
+        super("Admin deposit"); // Sets title
         setSize(375, 200);
+        setIconImage(LoginFrame.icon.getImage());
         adminDepositPanel = new AdminDepositPanel();
         setResizable(false);
         this.setLocation(500, 500);

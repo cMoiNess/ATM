@@ -66,8 +66,8 @@ public class CLI implements Serializable {
                     if (accountExistOrNot || accountExistOrNotAdmin) {
                         System.out.println("Le compte existe déjà, merci de choisir un login différent ");
                     } else {
-                        listUser.add(new User(valueNewLogin, valueNewPin)); //Creation of new user
-                        fileGestion.writeToFileAnObject("user.txt", listUser.get(listUser.size() - 1)); //Add this user to database
+                        listUser.add(new User(valueNewLogin, valueNewPin)); //Creation of a new user
+                        fileGestion.writeToFileAnObject("user.txt", listUser.get(listUser.size() - 1)); //Add this user the database
                         nbIndex = fileGestion.findIndexAccount("user.txt", valueNewLogin); //User account information stored in index
                         System.out.println("Création du compte...");
                         System.out.println("Votre compte est ouvert !");

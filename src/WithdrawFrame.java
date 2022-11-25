@@ -5,9 +5,10 @@ public class WithdrawFrame extends JFrame{
 	private WithdrawPanel withdrawPanel;
 	
 	public WithdrawFrame(){
-		super("Make A Withdrawal");
+		super("Make A Withdrawal"); // Sets title
 		setSize(375, 200);
 		setResizable(false);
+		setIconImage(LoginFrame.icon.getImage());
 		withdrawPanel = new WithdrawPanel();
 		this.setLocation(500, 500);
 		add(withdrawPanel);

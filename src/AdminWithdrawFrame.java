@@ -6,9 +6,10 @@ public class AdminWithdrawFrame extends JFrame{
     private AdminWithdrawPanel adminWithdrawPanel;
 
     public AdminWithdrawFrame(){
-        super("Make A Transfer");
+        super("Admin Withdraw");
         setSize(375, 200);
         adminWithdrawPanel = new AdminWithdrawPanel();
+        setIconImage(LoginFrame.icon.getImage());
         setResizable(false);
         this.setLocation(500, 500);
         add(adminWithdrawPanel);

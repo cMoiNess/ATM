@@ -6,9 +6,10 @@ public class AdminBalanceFrame extends JFrame{
     private AdminBalancePanel adminBalancePanel;
 
     public AdminBalanceFrame(){
-        super("User balance");
+        super("User balance"); // Sets title
         setSize(530, 280);
         setResizable(false);
+        setIconImage(LoginFrame.icon.getImage());
         adminBalancePanel = new AdminBalancePanel();
         this.setLocation(500, 500);
         add(adminBalancePanel);

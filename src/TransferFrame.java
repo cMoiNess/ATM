@@ -9,6 +9,7 @@ public class TransferFrame extends JFrame{
 		super("Make A Transfer");
 		setSize(375, 200);
 		transferPanel = new TransferPanel();
+		setIconImage(LoginFrame.icon.getImage());
 		setResizable(false);
 		this.setLocation(500, 500);
 		add(transferPanel);

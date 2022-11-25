@@ -9,9 +9,10 @@ public class RegisterFrame extends JFrame{
 
 	public RegisterFrame(){
 		
-		super("Enter Name and PIN");
+		super("Register"); // Sets title
 		setSize(350, 200);
 		setResizable(false);
+		setIconImage(LoginFrame.icon.getImage());
 		registerPanel = new RegisterPanel();
 		this.setLocation(500, 500);
 		add(registerPanel);

@@ -9,9 +9,10 @@ public class AdminCreateFrame extends JFrame{
 
     public AdminCreateFrame(){
 
-        super("Enter Name and PIN");
-        setSize(350, 200);
+        super("Create an admin"); // Sets title
+        setSize(350, 200); // Sets size
         setResizable(false);
+        setIconImage(LoginFrame.icon.getImage()); // Sets Icon
         adminCreatePanel = new AdminCreatePanel();
         this.setLocation(500, 500);
         add(adminCreatePanel);

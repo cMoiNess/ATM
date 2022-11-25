@@ -6,9 +6,10 @@ public class AdminDeleteFrame extends JFrame{
     private AdminDeletePanel adminDeletePanel;
 
     public AdminDeleteFrame(){
-        super("User balance");
+        super("Delete a user"); // Sets title
         setSize(530, 280);
         setResizable(false);
+        setIconImage(LoginFrame.icon.getImage());
         adminDeletePanel = new AdminDeletePanel();
         this.setLocation(500, 500);
         add(adminDeletePanel);

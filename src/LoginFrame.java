@@ -4,6 +4,8 @@ public class LoginFrame extends JFrame {
 	
 	private LoginPanel loginPanel;
 
+	static ImageIcon icon = new ImageIcon("atmIcon.png");
+
 	private static boolean login;
 
 	
@@ -11,9 +13,10 @@ public class LoginFrame extends JFrame {
 		
 	
 		
-		super("Please Login ...");
+		super("Login");
 		setSize(375, 200);
 		setResizable(false);
+		setIconImage(icon.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		loginPanel = new LoginPanel();

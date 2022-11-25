@@ -9,6 +9,7 @@ public class DepositFrame extends JFrame{
 		super("Make A Deposit");
 		setSize(375, 200);
 		setResizable(false);
+		setIconImage(LoginFrame.icon.getImage());
 		depositPanel = new DepositPanel();
 		this.setLocation(500, 500);
 		add(depositPanel);

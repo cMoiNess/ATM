@@ -7,7 +7,7 @@ public class ATM_GUI implements Serializable {
 
     public ATM_GUI(){}
 
-    public static boolean isNumeric(String str) {
+    public static boolean isNumeric(String str) { // Method to make sure a string is a double
         try {
             double d = Double.parseDouble(str);
         } catch (NumberFormatException nfe) {
@@ -89,6 +89,7 @@ public class ATM_GUI implements Serializable {
 
                     adminSelectionFrame.setVisible(false);
 
+                    // Login button is pressed
                     if (LoginPanel.getLogin()) {
 
                         if(isNumeric(loginFrame.getPassword())){
@@ -98,36 +99,38 @@ public class ATM_GUI implements Serializable {
 
                             if (userOkOrNok) {
 
-                                nbIndex = fileGestion.findIndexAccount("user.txt", loginFrame.getName());
-                                selectionFrame.setID(loginFrame.getName());
-                                selectionFrame.setClear();
-                                loginFrame.setIncorrectClear();
-                                action = ACTION_SELECT;
-                                LoginPanel.setLoginFalse();
+                                nbIndex = fileGestion.findIndexAccount("user.txt", loginFrame.getName()); //User account information stored in index
+                                selectionFrame.setID(loginFrame.getName()); // Method used to display the user's name on the selection window
+                                selectionFrame.setClear(); // Clears old informations displayed on the selection window
+                                loginFrame.setIncorrectClear(); // Clears any errors
+                                action = ACTION_SELECT; // Jump to the selection case
+                                LoginPanel.setLoginFalse(); // sets login request to false
                             } else if (adminOkOrNok) {
                                 nbIndex = fileGestion.findIndexAccount("admin.txt", loginFrame.getName()); //Admin account information stored in index
-                                adminSelectionFrame.setID(loginFrame.getName());
+                                adminSelectionFrame.setID(loginFrame.getName()); // Method used to display the admin's name on the admin selection window
                                 loginFrame.setIncorrectClear();
-                                action = ACTION_ADMIN_SELECT;
-                                LoginPanel.setLoginFalse();
+                                action = ACTION_ADMIN_SELECT; // Jump to the admin selection case
+                                LoginPanel.setLoginFalse(); // Drops the flag
                             } else {
-                                loginFrame.setIncorrect();
-                                LoginPanel.setLoginFalse();
+                                loginFrame.setIncorrect(); // Display an error
+                                LoginPanel.setLoginFalse(); // Drops the flag
                             }
 
                         } else {
-                            loginFrame.setIncorrect();
-                            selectionFrame.setClear();
-                            LoginPanel.setLoginFalse();
+                            loginFrame.setIncorrect(); // Display an error
+                            selectionFrame.setClear(); // Clears window
+                            LoginPanel.setLoginFalse(); // Drops the flag
                         }
 
                     }
 
+                    // Register button is pressed
                     if(LoginPanel.getRegister()) {
 
-                        action = ACTION_REGISTER;
+                        action = ACTION_REGISTER; // Jump to the register case
                     }
 
+                    // Exit button is pressed
                     if(LoginPanel.getExit()) {
                         exit = true;
                     }
@@ -146,36 +149,34 @@ public class ATM_GUI implements Serializable {
                     transferFrame.setVisible(false);
                     infoFrame.setVisible(false);
 
+                    // accept button is pressed
                     if (RegisterPanel.getAccept()) {
 
-                        if(isNumeric(registerFrame.getPassword())){
+                        if(isNumeric(registerFrame.getPassword())){ // If the password is a 4 digit number
 
                             boolean userOkOrNok = fileGestion.verifAccountExist("user.txt", registerFrame.getName());  //Boolean to check if user association matches user database file
                             boolean adminOkOrNok = fileGestion.verifAccountExist("admin.txt", registerFrame.getName());//Boolean to check if user association matches admin database file
-                            if (userOkOrNok || adminOkOrNok) {
+                            if (userOkOrNok || adminOkOrNok) { // If any account has the same name
 
-                                registerFrame.setIncorrectUsername();
-                                registerFrame.setAcceptFalse();
+                                registerFrame.setIncorrectUsername(); // Display an error
+                                registerFrame.setAcceptFalse(); // Drops the flag
                                 break;
 
-                            }else if(!(userOkOrNok) && !(adminOkOrNok)){
+                            }else if(!(userOkOrNok) && !(adminOkOrNok)){ // If no account match
 
-                                listUser.add(new User(registerFrame.getName(), Integer.valueOf(registerFrame.getPassword())));
-                                fileGestion.writeToFileAnObject("user.txt", listUser.get(listUser.size() - 1));
-                                nbIndex = fileGestion.findIndexAccount("user.txt", registerFrame.getName());
-                                LoginPanel.setRegisterFalse();
-                                registerFrame.setAcceptFalse();
-                                loginFrame.setClear();
-                                action = ACTION_LOGIN;
-                                registerFrame.setClear();
-                                registerFrame.setInfoClear();
+                                listUser.add(new User(registerFrame.getName(), Integer.valueOf(registerFrame.getPassword()))); //Creation of a new user
+                                fileGestion.writeToFileAnObject("user.txt", listUser.get(listUser.size() - 1)); //Add this user the database
+                                nbIndex = fileGestion.findIndexAccount("user.txt", registerFrame.getName()); //User account information stored in index
+                                registerFrame.setAcceptFalse(); // Drops the flag
+                                registerFrame.setClear(); // Clears the window
+                                registerFrame.setInfoClear(); // Clears any error
                                 break;
 
                             }else {
 
-                                registerFrame.setIncorrect();
-                                registerFrame.setClear();
-                                registerFrame.setAcceptFalse();
+                                registerFrame.setIncorrect(); // Display an error
+                                registerFrame.setClear(); // Clears Window
+                                registerFrame.setAcceptFalse(); // Drops the flag
                             }
 
                         }
@@ -183,11 +184,11 @@ public class ATM_GUI implements Serializable {
                     }
                     //BACK BUTTON IS CLICKED
                     if (registerFrame.getBack()){
-                        action = ACTION_LOGIN;
-                        loginFrame.setClear();
-                        registerFrame.setClear();
-                        LoginPanel.setRegisterFalse();
-                        registerFrame.setBackFalse();
+                        action = ACTION_LOGIN; // Jump to the login case
+                        loginFrame.setClear(); // Clears Window
+                        registerFrame.setClear(); // Clears Window
+                        LoginPanel.setRegisterFalse(); // Drops the flag
+                        registerFrame.setBackFalse(); // Drops the back flag
 
                     }
 
@@ -206,40 +207,40 @@ public class ATM_GUI implements Serializable {
                     transferFrame.setVisible(false);
                     infoFrame.setVisible(false);
 
-                    selectionFrame.setName(loginFrame.getName());
+                    selectionFrame.setName(loginFrame.getName()); // Method to display the user's name
 
-                    selectionFrame.getBalance(loginFrame.getName(),listUser.get(nbIndex).getBalance());
+                    selectionFrame.getBalance(loginFrame.getName(),listUser.get(nbIndex).getBalance()); // Method to get the user's balance
 
 
                     //DEPOSIT BUTTON IS CLICKED
                     if (selectionFrame.getDeposit()){
-                        selectionFrame.setDepositFalse();
+                        selectionFrame.setDepositFalse(); // Drops the flag
                         action = ACTION_DEPOSIT;
                     }
 
                     //WITHDRAW BUTTON IS CLICKED
                     if (selectionFrame.getWithdraw()){
-                        selectionFrame.setWithdrawFalse();
+                        selectionFrame.setWithdrawFalse(); // Drops the flag
                         action = ACTION_WITHDRAW;
                     }
 
                     //TRANSFER BUTTON IS CLICKED
                     if (selectionFrame.getTransfer()){
-                        selectionFrame.setTransferFalse();
+                        selectionFrame.setTransferFalse(); // Drops the flag
                         action = ACTION_TRANSFER;
                     }
 
                     //HISTORY BUTTON IS CLICKED
                     if (selectionFrame.getHistory()){
-                        selectionFrame.setHistoryFalse();
-                        infoFrame.addToDisplay(listUser.get(nbIndex).historyOfTransaction());
+                        selectionFrame.setHistoryFalse(); // Drops the flag
+                        infoFrame.addToDisplay(listUser.get(nbIndex).historyOfTransaction()); // Method to diplay the user's history
                         action = ACTION_HISTORY;
                     }
                     //DISCONNECT BUTTON IS CLICKED
                     if (selectionFrame.getDisconnect()){
-                        selectionFrame.setDisconnectFalse();
-                        loginFrame.setClear();
-                        fileGestion.writeToFileObjects("user.txt", listUser);
+                        selectionFrame.setDisconnectFalse(); // Drops the flag
+                        loginFrame.setClear(); // Clears the login window
+                        fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
                         action = ACTION_LOGIN;
                     }
 
@@ -258,40 +259,40 @@ public class ATM_GUI implements Serializable {
                     transferFrame.setVisible(false);
                     infoFrame.setVisible(false);
 
-
-
+                    // Deposit button is pressed
                     if(depositFrame.getDeposit()) {
 
                         String deposit_account_amount = depositFrame.getDepositAmount();
                         double amt = 0;
 
-                        if (isNumeric(deposit_account_amount)){
-                            amt = Double.parseDouble(deposit_account_amount);
+                        if (isNumeric(deposit_account_amount)){ // If the deposit is a double
+                            amt = Double.parseDouble(deposit_account_amount); // Assign the value of the deposit to amt
                             if(amt <= 0){
-                                depositFrame.setIncorrectAmount();
-                                depositFrame.setDepositClear();
-                                depositFrame.setDepositFalse();
+                                depositFrame.setIncorrectAmount(); // Display an error
+                                depositFrame.setDepositClear(); // Clears window
+                                depositFrame.setDepositFalse(); // Drops the flag
                             } else {
                                 depositFrame.setCorrectAmount();
                                 depositFrame.setDepositClear();
-                                listUser.get(nbIndex).deposit(amt);
-                                depositFrame.setDepositFalse();
-                                fileGestion.writeToFileObjects("user.txt", listUser);
+                                listUser.get(nbIndex).deposit(amt); // Method to add money to the user's account
+                                depositFrame.setDepositFalse(); // Drops the flag
+                                fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
                                 break;
                             }
-                        } else if (!(isNumeric(deposit_account_amount))) {
+                        } else if (!(isNumeric(deposit_account_amount))) { // If the value isn't numeric
 
-                            depositFrame.setIncorrectAmount();
-                            depositFrame.setDepositClear();
-                            depositFrame.setDepositFalse();
+                            depositFrame.setIncorrectAmount(); // Display an error
+                            depositFrame.setDepositClear(); // Clears window
+                            depositFrame.setDepositFalse(); // Drops the flag
                         }
 
                     }
 
+                    // Back button is pressed
                     if (depositFrame.getBack()){
-                        depositFrame.setDepositClear();
-                        depositFrame.setInfoClear();
-                        depositFrame.setBackFalse();
+                        depositFrame.setDepositClear(); // Clears Window
+                        depositFrame.setInfoClear(); // Clears any informations on screen (errors/success message)
+                        depositFrame.setBackFalse(); // Drops the flag
                         action = ACTION_SELECT;
 
                     }
@@ -310,8 +311,7 @@ public class ATM_GUI implements Serializable {
                     transferFrame.setVisible(false);
                     infoFrame.setVisible(false);
 
-
-
+                    // Withdraw button is pressed
                     if(withdrawFrame.getWithdraw()){
 
                         String withdraw_account_amount = withdrawFrame.getWithdrawAmount();
@@ -319,32 +319,32 @@ public class ATM_GUI implements Serializable {
 
                         if (isNumeric(withdraw_account_amount)){
                             amt = Double.parseDouble(withdraw_account_amount);
-                            if((amt <= 0) || (listUser.get(nbIndex).getBalance() - amt< 0)){
-                                withdrawFrame.setIncorrectAmount();
-                                withdrawFrame.setWithdrawClear();
-                                withdrawFrame.setWithdrawFalse();
+                            if((amt <= 0) || (listUser.get(nbIndex).getBalance() - amt< 0)){ // If the user's trying to withdraw more than he has
+                                withdrawFrame.setIncorrectAmount(); // Display an error
+                                withdrawFrame.setWithdrawClear(); // Clears window
+                                withdrawFrame.setWithdrawFalse(); // Drops the flag
                             } else {
                                 withdrawFrame.setCorrectAmount();
                                 withdrawFrame.setWithdrawClear();
-                                listUser.get(nbIndex).withdrawal(amt);
-                                withdrawFrame.setWithdrawFalse();
-                                fileGestion.writeToFileObjects("user.txt", listUser);
+                                listUser.get(nbIndex).withdrawal(amt); // Method to withdraw money
+                                withdrawFrame.setWithdrawFalse(); // Drops the flag
+                                fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
                                 break;
                             }
                         } else if (!(isNumeric(withdraw_account_amount))) {
 
-                            withdrawFrame.setIncorrectAmount();
-                            withdrawFrame.setWithdrawClear();
-                            withdrawFrame.setWithdrawFalse();
+                            withdrawFrame.setIncorrectAmount(); // Display an error
+                            withdrawFrame.setWithdrawClear(); // Clears Window
+                            withdrawFrame.setWithdrawFalse(); // Drops the flag
                         }
 
                     }
 
                     //BACK BUTTON IS CLICKED
                     if (withdrawFrame.getBack()){
-                        withdrawFrame.setWithdrawClear();
-                        withdrawFrame.setInfoClear();
-                        withdrawFrame.setBackFalse();
+                        withdrawFrame.setWithdrawClear(); // Clears Window
+                        withdrawFrame.setInfoClear(); // Clears any informations on screen (errors/success message)
+                        withdrawFrame.setBackFalse(); // Drops the flag
                         action = ACTION_SELECT;
 
                     }
@@ -364,9 +364,10 @@ public class ATM_GUI implements Serializable {
                     transferFrame.setVisible(false);
                     infoFrame.setVisible(true);
 
+                    // back button is pressed
                     if(infoFrame.getBack()){
-                        infoFrame.setBackFalse();
-                        infoFrame.clearDisplay();
+                        infoFrame.setBackFalse(); // Drops the flag
+                        infoFrame.clearDisplay(); // Clears Window
                         action = ACTION_SELECT;
 
                     }
@@ -385,6 +386,7 @@ public class ATM_GUI implements Serializable {
                     transferFrame.setVisible(true);
                     infoFrame.setVisible(false);
 
+                    // Transfer button is pressed
                     if(transferFrame.getTransfer()){
 
                         String account = transferFrame.getTransferAccount();
@@ -393,56 +395,56 @@ public class ATM_GUI implements Serializable {
 
                         if ((account.equals("")) && (amount.equals(""))) {
 
-                            transferFrame.setIncorrect();
-                            transferFrame.setTransferFalse();
-                            transferFrame.setTransferClear();
+                            transferFrame.setIncorrect(); // Display an error
+                            transferFrame.setTransferFalse(); // Drops the flag
+                            transferFrame.setTransferClear(); // Clears Window
 
                         } else if (amount.equals("")) {
 
-                            transferFrame.setIncorrectAmount();
-                            transferFrame.setTransferFalse();
-                            transferFrame.setTransferClear();
+                            transferFrame.setIncorrectAmount(); // Display an error
+                            transferFrame.setTransferFalse(); // Drops the flag
+                            transferFrame.setTransferClear(); // Clears Window
 
                         } else if(account.equals("")){
 
-                            transferFrame.setIncorrectAccount();
-                            transferFrame.setTransferFalse();
-                            transferFrame.setTransferClear();
+                            transferFrame.setIncorrectAccount(); // Display an error
+                            transferFrame.setTransferFalse(); // Drops the flag
+                            transferFrame.setTransferClear(); // Clears Window
 
                         } else {
 
-                            boolean accountExist = fileGestion.verifAccountExist("user.txt", account);
+                            boolean accountExist = fileGestion.verifAccountExist("user.txt", account); // Check if account exists in user.txt
                             if (isNumeric(amount) && accountExist) {
 
                                 amt = Double.parseDouble(amount);
 
                                 if ((amt <= 0) || (listUser.get(nbIndex).getBalance() - amt< 0)) {
 
-                                    transferFrame.setIncorrectAmount();
-                                    transferFrame.setTransferFalse();
-                                    transferFrame.setTransferClear();
+                                    transferFrame.setIncorrectAmount(); // Display an error
+                                    transferFrame.setTransferFalse(); // Drops the flag
+                                    transferFrame.setTransferClear(); // Clears Window
 
                                 } else {
 
                                     int nbIndexCredit = fileGestion.findIndexAccount("user.txt", account);
-                                    listUser.get(nbIndex).transfer(amt, listUser.get(nbIndexCredit));
+                                    listUser.get(nbIndex).transfer(amt, listUser.get(nbIndexCredit)); // Method to transfer money to users
                                     transferFrame.setCorrectAmount();
-                                    transferFrame.setTransferFalse();
-                                    transferFrame.setTransferClear();
+                                    transferFrame.setTransferFalse(); // Drops the flag
+                                    transferFrame.setTransferClear(); // Clears Window
                                     fileGestion.writeToFileObjects("user.txt", listUser);
                                     break;
 
                                 }
 
                             } else if (isNumeric(amount) && !accountExist) {
-                                transferFrame.setIncorrectAccount();
-                                transferFrame.setTransferFalse();
-                                transferFrame.setTransferClear();
+                                transferFrame.setIncorrectAccount(); // Display an error
+                                transferFrame.setTransferFalse(); // Drops the flag
+                                transferFrame.setTransferClear(); // Clears Window
                             } else if (!(isNumeric(amount)) && accountExist) {
 
-                                transferFrame.setIncorrectAmount();
-                                transferFrame.setTransferFalse();
-                                transferFrame.setTransferClear();
+                                transferFrame.setIncorrectAmount(); // Display an error
+                                transferFrame.setTransferFalse(); // Drops the flag
+                                transferFrame.setTransferClear(); // Clears Window
 
                             }
 
@@ -450,10 +452,11 @@ public class ATM_GUI implements Serializable {
 
                     }
 
+                    // Back button is pressed
                     if (transferFrame.getBack()){
-                        transferFrame.setInfoClear();
-                        transferFrame.setInfoClear();
-                        transferFrame.setBackFalse();
+                        transferFrame.setInfoClear(); // Clears any informations on screen (errors/success message)
+                        transferFrame.setTransferClear(); // Clears Window
+                        transferFrame.setBackFalse(); // Drops the flag
                         action = ACTION_SELECT;
 
                     }
@@ -476,64 +479,65 @@ public class ATM_GUI implements Serializable {
                     adminDeleteFrame.setVisible(false);
                     adminCreateFrame.setVisible(false);
 
-                    adminSelectionFrame.setName(loginFrame.getName());
+                    adminSelectionFrame.setName(loginFrame.getName()); // Method to display admin's name
 
                     //ADMIN DEPOSIT BUTTON IS CLICKED
                     if (adminSelectionFrame.getAdminDeposit()){
-                        adminSelectionFrame.setAdminDepositFalse();
+                        adminSelectionFrame.setAdminDepositFalse(); // Drops the flag
                         action = ACTION_ADMIN_DEPOSIT;
                     }
 
                     //ADMIN WITHDRAW BUTTON IS CLICKED
                     if (adminSelectionFrame.getAdminWithdraw()){
-                        adminSelectionFrame.setAdminWithdrawFalse();
+                        adminSelectionFrame.setAdminWithdrawFalse(); // Drops the flag
                         action = ACTION_ADMIN_WITHDRAW;
                     }
 
                     //ADMIN TRANSFER BUTTON IS CLICKED
                     if (adminSelectionFrame.getAdminTransfer()){
-                        adminSelectionFrame.setAdminTransferFalse();
+                        adminSelectionFrame.setAdminTransferFalse(); // Drops the flag
                         action = ACTION_ADMIN_TRANSFER;
                     }
 
                     //ADMIN BALANCE BUTTON IS CLICKED
                     if (adminSelectionFrame.getAdminBalance()){
-                        adminSelectionFrame.setAdminBalanceFalse();
+                        adminSelectionFrame.setAdminBalanceFalse(); // Drops the flag
                         action = ACTION_ADMIN_BALANCE;
                     }
 
                     //ADMIN HISTORY BUTTON IS CLICKED
                     if (adminSelectionFrame.getAdminHistory()){
-                        adminSelectionFrame.setAdminHistoryFalse();
+                        adminSelectionFrame.setAdminHistoryFalse(); // Drops the flag
                         action = ACTION_ADMIN_HISTORY;
                         break;
                     }
 
                     //ADMIN DELETE BUTTON IS CLICKED
                     if (adminSelectionFrame.getAdminDelete()){
-                        adminSelectionFrame.setAdminDeleteFalse();
+                        adminSelectionFrame.setAdminDeleteFalse(); // Drops the flag
                         action = ACTION_ADMIN_DELETE;
                     }
 
                     //ADMIN CREATE BUTTON IS CLICKED
                     if (adminSelectionFrame.getAdminCreate()){
-                        adminSelectionFrame.setAdminCreateFalse();
+                        adminSelectionFrame.setAdminCreateFalse(); // Drops the flag
                         action = ACTION_ADMIN_CREATE;
                     }
 
                     //ADMIN LIST BUTTON IS CLICKED
                     if (adminSelectionFrame.getAdminList()){
-                        adminSelectionFrame.setAdminListFalse();
-                        adminListFrame.addToDisplay(fileGestion.printUsersForAdmin("user.txt"));
+                        adminSelectionFrame.setAdminListFalse(); // Drops the flag
+                        adminListFrame.addToDisplay(fileGestion.printUsersForAdmin("user.txt")); // Method to display every users
                         action = ACTION_ADMIN_LIST;
                     }
 
                     //DISCONNECT BUTTON IS CLICKED
                     if (adminSelectionFrame.getDisconnect()){
-                        adminSelectionFrame.setDisconnectFalse();
-                        loginFrame.setClear();
-                        loginFrame.setIncorrectClear();
-                        fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin);
+                        adminSelectionFrame.setDisconnectFalse(); // Drops the flag
+                        loginFrame.setClear(); // Clears window
+                        loginFrame.setIncorrectClear(); // Clears any error
+                        fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin); // Saves admin info
+                        fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
                         action = ACTION_LOGIN;
                     }
 
@@ -542,6 +546,7 @@ public class ATM_GUI implements Serializable {
 
                 case ACTION_ADMIN_DEPOSIT: {
 
+                    //Display the ADMIN DEPOSIT frame
                     adminSelectionFrame.setVisible(false);
                     adminDepositFrame.setVisible(true);
                     adminWithdrawFrame.setVisible(false);
@@ -552,6 +557,7 @@ public class ATM_GUI implements Serializable {
                     adminDeleteFrame.setVisible(false);
                     adminCreateFrame.setVisible(false);
 
+                    //ADMIN DEPOSIT BUTTON IS CLICKED
                     if(adminDepositFrame.getAdminDeposit()){
 
                         String account = adminDepositFrame.getDepositAccount();
@@ -560,21 +566,21 @@ public class ATM_GUI implements Serializable {
 
                         if ((account.equals("")) && (amount.equals(""))) {
 
-                            adminDepositFrame.setIncorrect();
-                            adminDepositFrame.setAdminDepositFalse();
-                            adminDepositFrame.setDepositClear();
+                            adminDepositFrame.setIncorrect(); // Display an error
+                            adminDepositFrame.setAdminDepositFalse(); // Drops the flag
+                            adminDepositFrame.setDepositClear(); // Clears Window
 
                         } else if (amount.equals("")) {
 
-                            adminDepositFrame.setIncorrectAmount();
-                            adminDepositFrame.setAdminDepositFalse();
-                            adminDepositFrame.setDepositClear();
+                            adminDepositFrame.setIncorrectAmount(); // Display an error
+                            adminDepositFrame.setAdminDepositFalse(); // Drops the flag
+                            adminDepositFrame.setDepositClear(); // Clears Window
 
                         } else if(account.equals("")){
 
-                            adminDepositFrame.setIncorrectAccount();
-                            adminDepositFrame.setAdminDepositFalse();
-                            adminDepositFrame.setDepositClear();
+                            adminDepositFrame.setIncorrectAccount(); // Display an error
+                            adminDepositFrame.setAdminDepositFalse(); // Drops the flag
+                            adminDepositFrame.setDepositClear(); // Clears Window
 
                         } else {
 
@@ -585,32 +591,32 @@ public class ATM_GUI implements Serializable {
 
                                 if (amt <= 0) {
 
-                                    adminDepositFrame.setIncorrectAmount();
-                                    adminDepositFrame.setAdminDepositFalse();
-                                    adminDepositFrame.setDepositClear();
+                                    adminDepositFrame.setIncorrectAmount(); // Display an error
+                                    adminDepositFrame.setAdminDepositFalse(); // Drops the flag
+                                    adminDepositFrame.setDepositClear(); // Clears Window
 
                                 } else {
 
                                     int nbIndexCredit = fileGestion.findIndexAccount("user.txt", account);
-                                    listAdmin.get(nbIndex).depositOtherAccount(amt, listUser.get(nbIndexCredit));
+                                    listAdmin.get(nbIndex).depositOtherAccount(amt, listUser.get(nbIndexCredit)); // Method that allows admin to send money to users
                                     adminDepositFrame.setCorrectAmount();
-                                    adminDepositFrame.setAdminDepositFalse();
-                                    adminDepositFrame.setDepositClear();
-                                    fileGestion.writeToFileObjects("user.txt", listUser);
-                                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin);
+                                    adminDepositFrame.setAdminDepositFalse(); // Drops the flag
+                                    adminDepositFrame.setDepositClear(); // Clears Window
+                                    fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
+                                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin); // Saves admin info
                                     break;
 
                                 }
 
                             } else if (isNumeric(amount) && !accountExist) {
-                                adminDepositFrame.setIncorrectAccount();
-                                adminDepositFrame.setAdminDepositFalse();
-                                adminDepositFrame.setDepositClear();
+                                adminDepositFrame.setIncorrectAccount(); // Display an error
+                                adminDepositFrame.setAdminDepositFalse(); // Drops the flag
+                                adminDepositFrame.setDepositClear(); // Clears Window
                             } else if (!(isNumeric(amount)) && accountExist) {
 
-                                adminDepositFrame.setIncorrectAmount();
-                                adminDepositFrame.setAdminDepositFalse();
-                                adminDepositFrame.setDepositClear();
+                                adminDepositFrame.setIncorrectAmount(); // Display an error
+                                adminDepositFrame.setAdminDepositFalse(); // Drops the flag
+                                adminDepositFrame.setDepositClear(); // Clears Window
 
                             }
 
@@ -618,10 +624,11 @@ public class ATM_GUI implements Serializable {
 
                     }
 
+                    //BACK BUTTON IS CLICKED
                     if (adminDepositFrame.getBack()){
-                        adminDepositFrame.setInfoClear();
-                        adminDepositFrame.setInfoClear();
-                        adminDepositFrame.setBackFalse();
+                        adminDepositFrame.setInfoClear(); // Clears any informations on screen (errors/success message)
+                        adminDepositFrame.setDepositClear(); // Clears Window
+                        adminDepositFrame.setBackFalse(); // Drops the flag
                         action = ACTION_ADMIN_SELECT;
 
                     }
@@ -632,6 +639,7 @@ public class ATM_GUI implements Serializable {
 
                 case ACTION_ADMIN_WITHDRAW: {
 
+                    //Display the ADMIN WITHDRAW frame
                     adminSelectionFrame.setVisible(false);
                     adminDepositFrame.setVisible(false);
                     adminWithdrawFrame.setVisible(true);
@@ -642,6 +650,7 @@ public class ATM_GUI implements Serializable {
                     adminDeleteFrame.setVisible(false);
                     adminCreateFrame.setVisible(false);
 
+                    //WITHDRAW BUTTON IS CLICKED
                     if(adminWithdrawFrame.getAdminWithdraw()){
 
                         String account = adminWithdrawFrame.getWithdrawAccount();
@@ -650,21 +659,21 @@ public class ATM_GUI implements Serializable {
 
                         if ((account.equals("")) && (amount.equals(""))) {
 
-                            adminWithdrawFrame.setIncorrect();
-                            adminWithdrawFrame.setAdminWithdrawFalse();
-                            adminWithdrawFrame.setWithdrawClear();
+                            adminWithdrawFrame.setIncorrect(); // Display an error
+                            adminWithdrawFrame.setAdminWithdrawFalse(); // Drops the flag
+                            adminWithdrawFrame.setWithdrawClear(); // Clears Window
 
                         } else if (amount.equals("")) {
 
-                            adminWithdrawFrame.setIncorrectAmount();
-                            adminWithdrawFrame.setAdminWithdrawFalse();
-                            adminWithdrawFrame.setWithdrawClear();
+                            adminWithdrawFrame.setIncorrectAmount(); // Display an error
+                            adminWithdrawFrame.setAdminWithdrawFalse(); // Drops the flag
+                            adminWithdrawFrame.setWithdrawClear(); // Clears Window
 
                         } else if(account.equals("")){
 
-                            adminWithdrawFrame.setIncorrectAccount();
-                            adminWithdrawFrame.setAdminWithdrawFalse();
-                            adminWithdrawFrame.setWithdrawClear();
+                            adminWithdrawFrame.setIncorrectAccount(); // Display an error
+                            adminWithdrawFrame.setAdminWithdrawFalse(); // Drops the flag
+                            adminWithdrawFrame.setWithdrawClear(); // Clears Window
 
                         } else {
 
@@ -676,32 +685,32 @@ public class ATM_GUI implements Serializable {
 
                                 if ((amt <= 0) || listUser.get(nbIndexCredit).getBalance() - amt < 0) {
 
-                                    adminWithdrawFrame.setIncorrectAmount();
-                                    adminWithdrawFrame.setAdminWithdrawFalse();
-                                    adminWithdrawFrame.setWithdrawClear();
+                                    adminWithdrawFrame.setIncorrectAmount(); // Display an error
+                                    adminWithdrawFrame.setAdminWithdrawFalse(); // Drops the flag
+                                    adminWithdrawFrame.setWithdrawClear(); // Clears Window
 
                                 } else {
 
 
-                                    listAdmin.get(nbIndex).withdrawalOtherAccount(amt, listUser.get(nbIndexCredit));
+                                    listAdmin.get(nbIndex).withdrawalOtherAccount(amt, listUser.get(nbIndexCredit)); // Method to withdraw money from an user
                                     adminWithdrawFrame.setCorrectAmount();
-                                    adminWithdrawFrame.setAdminWithdrawFalse();
-                                    adminWithdrawFrame.setWithdrawClear();
-                                    fileGestion.writeToFileObjects("user.txt", listUser);
-                                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin);
+                                    adminWithdrawFrame.setAdminWithdrawFalse(); // Drops the flag
+                                    adminWithdrawFrame.setWithdrawClear(); // Clears Window
+                                    fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
+                                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin); // Saves admin info
                                     break;
 
                                 }
 
                             } else if (isNumeric(amount) && !accountExist) {
-                                adminWithdrawFrame.setIncorrectAccount();
-                                adminWithdrawFrame.setAdminWithdrawFalse();
-                                adminWithdrawFrame.setWithdrawClear();
+                                adminWithdrawFrame.setIncorrectAccount(); // Display an error
+                                adminWithdrawFrame.setAdminWithdrawFalse(); // Drops the flag
+                                adminWithdrawFrame.setWithdrawClear(); // Clears Window
                             } else if (!(isNumeric(amount)) && accountExist) {
 
-                                adminWithdrawFrame.setIncorrectAmount();
-                                adminWithdrawFrame.setAdminWithdrawFalse();
-                                adminWithdrawFrame.setWithdrawClear();
+                                adminWithdrawFrame.setIncorrectAmount(); // Display an error
+                                adminWithdrawFrame.setAdminWithdrawFalse(); // Drops the flag
+                                adminWithdrawFrame.setWithdrawClear(); // Clears Window
 
                             }
 
@@ -709,10 +718,11 @@ public class ATM_GUI implements Serializable {
 
                     }
 
+                    //BACK BUTTON IS CLICKED
                     if (adminWithdrawFrame.getBack()){
-                        adminWithdrawFrame.setInfoClear();
-                        adminWithdrawFrame.setInfoClear();
-                        adminWithdrawFrame.setBackFalse();
+                        adminWithdrawFrame.setInfoClear(); // Clears any informations on screen (errors/success message)
+                        adminWithdrawFrame.setWithdrawClear(); // Clears Window
+                        adminWithdrawFrame.setBackFalse(); // Drops the flag
                         action = ACTION_ADMIN_SELECT;
 
                     }
@@ -723,6 +733,7 @@ public class ATM_GUI implements Serializable {
 
                 case ACTION_ADMIN_TRANSFER: {
 
+                    //Display the ADMIN TRANSFER frame
                     adminSelectionFrame.setVisible(false);
                     adminDepositFrame.setVisible(false);
                     adminWithdrawFrame.setVisible(false);
@@ -733,6 +744,7 @@ public class ATM_GUI implements Serializable {
                     adminDeleteFrame.setVisible(false);
                     adminCreateFrame.setVisible(false);
 
+                    //TRANSFER BUTTON IS CLICKED
                     if(adminTransferFrame.getAdminTransfer()){
 
                         String withdrawAccount = adminTransferFrame.getWithdrawAccount();
@@ -742,9 +754,9 @@ public class ATM_GUI implements Serializable {
 
                         if ((withdrawAccount.equals("")) || (depositAccount.equals("")) || (amount.equals(""))) {
 
-                            adminTransferFrame.setIncorrect();
-                            adminTransferFrame.setAdminTransferFalse();
-                            adminTransferFrame.setAdminTransferClear();
+                            adminTransferFrame.setIncorrect(); // Display an error
+                            adminTransferFrame.setAdminTransferFalse(); // Drops the flag
+                            adminTransferFrame.setAdminTransferClear(); // Clears Window
 
                         }else {
 
@@ -760,37 +772,37 @@ public class ATM_GUI implements Serializable {
 
                                 if ((amt <= 0) || (listUser.get(nbIndexCreditTransmitter).getBalance() - amt< 0)) {
 
-                                    adminTransferFrame.setIncorrectAmount();
-                                    adminTransferFrame.setAdminTransferFalse();
-                                    adminTransferFrame.setAdminTransferClear();
+                                    adminTransferFrame.setIncorrectAmount(); // Display an error
+                                    adminTransferFrame.setAdminTransferFalse(); // Drops the flag
+                                    adminTransferFrame.setAdminTransferClear(); // Clears Window
 
                                 } else {
 
 
-                                    listAdmin.get(nbIndex).transferOtherAccount(amt, listUser.get(nbIndexCreditTransmitter), listUser.get(nbIndexCreditBeneficiary));
+                                    listAdmin.get(nbIndex).transferOtherAccount(amt, listUser.get(nbIndexCreditTransmitter), listUser.get(nbIndexCreditBeneficiary)); // Method to transfer money between users
 
                                     adminTransferFrame.setCorrectAmount();
-                                    adminTransferFrame.setAdminTransferFalse();
-                                    adminTransferFrame.setAdminTransferClear();
-                                    fileGestion.writeToFileObjects("user.txt", listUser);
-                                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin);
+                                    adminTransferFrame.setAdminTransferFalse(); // Drops the flag
+                                    adminTransferFrame.setAdminTransferClear(); // Clears Window
+                                    fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
+                                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin); // Saves admin info
                                     break;
 
                                 }
 
                             } else if (isNumeric(amount) && !withdrawAccountExist && depositAccountExist) {
-                                adminTransferFrame.setIncorrectWithdrawAccount();
-                                adminTransferFrame.setAdminTransferFalse();
-                                adminTransferFrame.setAdminTransferClear();
+                                adminTransferFrame.setIncorrectWithdrawAccount(); // Display an error
+                                adminTransferFrame.setAdminTransferFalse(); // Drops the flag
+                                adminTransferFrame.setAdminTransferClear(); // Clears Window
                             } else if (isNumeric(amount) && withdrawAccountExist && !depositAccountExist) {
-                                adminTransferFrame.setIncorrectDepositAccount();
-                                adminTransferFrame.setAdminTransferFalse();
-                                adminTransferFrame.setAdminTransferClear();
+                                adminTransferFrame.setIncorrectDepositAccount(); // Display an error
+                                adminTransferFrame.setAdminTransferFalse(); // Drops the flag
+                                adminTransferFrame.setAdminTransferClear(); // Clears Window
                             } else if (!(isNumeric(amount))) {
 
-                                adminTransferFrame.setIncorrectAmount();
-                                adminTransferFrame.setAdminTransferFalse();
-                                adminTransferFrame.setAdminTransferClear();
+                                adminTransferFrame.setIncorrectAmount(); // Display an error
+                                adminTransferFrame.setAdminTransferFalse(); // Drops the flag
+                                adminTransferFrame.setAdminTransferClear(); // Clears Window
 
                             }
 
@@ -798,10 +810,11 @@ public class ATM_GUI implements Serializable {
 
                     }
 
+                    //BACK BUTTON IS CLICKED
                     if (adminTransferFrame.getBack()){
-                        adminTransferFrame.setInfoClear();
-                        adminTransferFrame.setInfoClear();
-                        adminTransferFrame.setBackFalse();
+                        adminTransferFrame.setInfoClear(); // Clears any informations on screen (errors/success message)
+                        adminTransferFrame.setAdminTransferClear(); // Clears Window
+                        adminTransferFrame.setBackFalse(); // Drops the flag
                         action = ACTION_ADMIN_SELECT;
 
                     }
@@ -812,6 +825,7 @@ public class ATM_GUI implements Serializable {
 
                 case ACTION_ADMIN_BALANCE: {
 
+                    //Display the ADMIN BALANCE frame
                     adminSelectionFrame.setVisible(false);
                     adminDepositFrame.setVisible(false);
                     adminWithdrawFrame.setVisible(false);
@@ -822,6 +836,7 @@ public class ATM_GUI implements Serializable {
                     adminDeleteFrame.setVisible(false);
                     adminCreateFrame.setVisible(false);
 
+                    //SHOW BUTTON IS CLICKED
                     if(adminBalanceFrame.getShow()){
 
                         String account = adminBalanceFrame.getUsername();
@@ -829,25 +844,27 @@ public class ATM_GUI implements Serializable {
                         if(withdrawAccountExist){
 
                             int nbIndexCredit = fileGestion.findIndexAccount("user.txt", account);
-                            adminBalanceFrame.addToDisplay("Balance : "+listUser.get(nbIndexCredit).getBalance());
-                            adminBalanceFrame.setShowFalse();
-                            adminBalanceFrame.clearDisplay();
+                            adminBalanceFrame.addToDisplay("Balance : "+listUser.get(nbIndexCredit).getBalance()); // Method to display the user's balance
+                            adminBalanceFrame.setShowFalse(); // Drops the flag
+                            adminBalanceFrame.clearDisplay(); // Clears Window
                             break;
 
                         }else {
 
-                            adminBalanceFrame.setInfo();
-                            adminBalanceFrame.setShowFalse();
+                            adminBalanceFrame.setInfo(); // Display an error
+                            adminBalanceFrame.setShowFalse(); // Drops the flag
                             break;
 
                         }
 
                     }
+
+                    //BACK BUTTON IS CLICKED
                     if(adminBalanceFrame.getBack()){
 
-                        adminBalanceFrame.setBackFalse();
-                        adminBalanceFrame.clearDisplay();
-                        adminBalanceFrame.addToDisplay("");
+                        adminBalanceFrame.setBackFalse(); // Drops the flag
+                        adminBalanceFrame.clearDisplay(); // Clears Window
+                        adminBalanceFrame.addToDisplay(""); // Clears Window
                         action = ACTION_ADMIN_SELECT;
 
                     }
@@ -857,6 +874,7 @@ public class ATM_GUI implements Serializable {
 
                 case ACTION_ADMIN_HISTORY: {
 
+                    //Display the ADMIN HISTORY frame
                     adminSelectionFrame.setVisible(false);
                     adminDepositFrame.setVisible(false);
                     adminWithdrawFrame.setVisible(false);
@@ -867,6 +885,7 @@ public class ATM_GUI implements Serializable {
                     adminDeleteFrame.setVisible(false);
                     adminCreateFrame.setVisible(false);
 
+                    //SHOW BUTTON IS CLICKED
                     if(adminHistoryFrame.getShow()){
 
                         String account = adminHistoryFrame.getUsername();
@@ -874,25 +893,27 @@ public class ATM_GUI implements Serializable {
                         if(withdrawAccountExist){
 
                             int nbIndexCredit = fileGestion.findIndexAccount("user.txt", account);
-                            adminHistoryFrame.addToDisplay(listAdmin.get(nbIndex).historyOfTransactionOtherAccount(listUser.get(nbIndexCredit)));
-                            adminHistoryFrame.setShowFalse();
-                            adminHistoryFrame.clearDisplay();
+                            adminHistoryFrame.addToDisplay(listAdmin.get(nbIndex).historyOfTransactionOtherAccount(listUser.get(nbIndexCredit))); // Method to display user's history
+                            adminHistoryFrame.setShowFalse(); // Drops the flag
+                            adminHistoryFrame.clearDisplay(); // Clears Window
                             break;
 
                         }else {
 
-                            adminHistoryFrame.setInfo();
-                            adminHistoryFrame.setShowFalse();
+                            adminHistoryFrame.setInfo(); // Display an error
+                            adminHistoryFrame.setShowFalse(); // Drops the flag
                             break;
 
                         }
 
                     }
+
+                    //BACK BUTTON IS CLICKED
                     if(adminHistoryFrame.getBack()){
 
-                        adminHistoryFrame.setBackFalse();
-                        adminHistoryFrame.clearDisplay();
-                        adminHistoryFrame.addToDisplay("");
+                        adminHistoryFrame.setBackFalse(); // Drops the flag
+                        adminHistoryFrame.clearDisplay(); // Clears Window
+                        adminHistoryFrame.addToDisplay(""); // Clears Window
                         action = ACTION_ADMIN_SELECT;
 
                     }
@@ -902,6 +923,7 @@ public class ATM_GUI implements Serializable {
 
                 case ACTION_ADMIN_CREATE: {
 
+                    //Display the ADMIN CREATE frame
                     adminSelectionFrame.setVisible(false);
                     adminDepositFrame.setVisible(false);
                     adminWithdrawFrame.setVisible(false);
@@ -912,6 +934,7 @@ public class ATM_GUI implements Serializable {
                     adminDeleteFrame.setVisible(false);
                     adminCreateFrame.setVisible(true);
 
+                    //ACCEPT BUTTON IS CLICKED
                     if (adminCreateFrame.getAccept()) {
 
                         if(isNumeric(adminCreateFrame.getPassword())){
@@ -921,35 +944,36 @@ public class ATM_GUI implements Serializable {
                             boolean adminOkOrNok = fileGestion.verifAccountExist("admin.txt", account);
                             if ((userOkOrNok) || (adminOkOrNok)) {
 
-                                adminCreateFrame.setIncorrectUsername();
-                                adminCreateFrame.setAcceptFalse();
+                                adminCreateFrame.setIncorrectUsername(); // Display an error
+                                adminCreateFrame.setAcceptFalse(); // Drops the flag
                                 break;
 
                             }else if(!(userOkOrNok) && !(adminOkOrNok)){
 
-                                listAdmin.add(new Admin(adminCreateFrame.getName(), Integer.valueOf(adminCreateFrame.getPassword())));
-                                fileGestion.writeToFileAnObjectAdmin("admin.txt", listAdmin.get(listAdmin.size() - 1));
+                                listAdmin.add(new Admin(adminCreateFrame.getName(), Integer.valueOf(adminCreateFrame.getPassword()))); // Method to add an admin
+                                fileGestion.writeToFileAnObjectAdmin("admin.txt", listAdmin.get(listAdmin.size() - 1)); // Add this admin to the database
                                 adminCreateFrame.setSuccess();
-                                adminCreateFrame.setAcceptFalse();
-                                adminCreateFrame.setClear();
+                                adminCreateFrame.setAcceptFalse(); // Drops the flag
+                                adminCreateFrame.setClear(); // Clears Window
                                 break;
 
                             }else {
 
-                                adminCreateFrame.setIncorrect();
-                                adminCreateFrame.setClear();
-                                adminCreateFrame.setAcceptFalse();
+                                adminCreateFrame.setIncorrect(); // Display an error
+                                adminCreateFrame.setClear(); // Clears Window
+                                adminCreateFrame.setAcceptFalse(); // Drops the flag
                             }
 
                         }
 
                     }
+
                     //BACK BUTTON IS CLICKED
                     if (adminCreateFrame.getBack()){
                         action = ACTION_ADMIN_SELECT;
-                        adminCreateFrame.setClear();
-                        adminCreateFrame.setInfoClear();
-                        adminCreateFrame.setBackFalse();
+                        adminCreateFrame.setClear(); // Clears Window
+                        adminCreateFrame.setInfoClear(); // Clears any informations on screen (errors/success message)
+                        adminCreateFrame.setBackFalse(); // Drops the flag
 
                     }
 
@@ -959,6 +983,7 @@ public class ATM_GUI implements Serializable {
 
                 case ACTION_ADMIN_DELETE: {
 
+                    //Display the ADMIN DELETE frame
                     adminSelectionFrame.setVisible(false);
                     adminDepositFrame.setVisible(false);
                     adminWithdrawFrame.setVisible(false);
@@ -969,27 +994,30 @@ public class ATM_GUI implements Serializable {
                     adminDeleteFrame.setVisible(true);
                     adminCreateFrame.setVisible(false);
 
+                    //DELETE BUTTON IS CLICKED
                     if(adminDeleteFrame.getDelete()){
                         String account = adminDeleteFrame.getUsername();
                         boolean accountOkOrNokDelete = fileGestion.verifAccountExist("user.txt", account);
 
                         if(accountOkOrNokDelete){
 
-                            listUser = fileGestion.eraseToFileAnObject("user.txt", listUser, account);
-                            fileGestion.writeToFileObjects("user.txt", listUser);
-                            adminDeleteFrame.setDeleteFalse();
+                            listUser = fileGestion.eraseToFileAnObject("user.txt", listUser, account); // Method to delete users
+                            fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
+                            adminDeleteFrame.setDeleteFalse(); // Drops the flag
                             adminDeleteFrame.setSuccess();
 
                         } else {
 
-                            adminDeleteFrame.setInfo();
-                            adminDeleteFrame.setDeleteFalse();
+                            adminDeleteFrame.setInfo(); // Display an error
+                            adminDeleteFrame.setDeleteFalse(); // Drops the flag
 
                         }
                     }
+
+                    //BACK BUTTON IS CLICKED
                     if(adminDeleteFrame.getBack()){
-                        adminDeleteFrame.setBackFalse();
-                        adminDeleteFrame.clearDisplay();
+                        adminDeleteFrame.setBackFalse(); // Drops the flag
+                        adminDeleteFrame.clearDisplay(); // Clears Window
                         action = ACTION_ADMIN_SELECT;
 
                     }
@@ -999,6 +1027,7 @@ public class ATM_GUI implements Serializable {
 
                 case ACTION_ADMIN_LIST: {
 
+                    //Display the ADMIN LIST frame
                     adminSelectionFrame.setVisible(false);
                     adminDepositFrame.setVisible(false);
                     adminWithdrawFrame.setVisible(false);
@@ -1009,9 +1038,10 @@ public class ATM_GUI implements Serializable {
                     adminDeleteFrame.setVisible(false);
                     adminCreateFrame.setVisible(false);
 
+                    //BACK BUTTON IS CLICKED
                     if(adminListFrame.getBack()){
-                        adminListFrame.setBackFalse();
-                        adminListFrame.clearDisplay();
+                        adminListFrame.setBackFalse(); // Drops the flag
+                        adminListFrame.clearDisplay(); // Clears Window
                         action = ACTION_ADMIN_SELECT;
 
                     }

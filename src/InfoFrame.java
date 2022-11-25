@@ -10,6 +10,7 @@ public class InfoFrame extends JFrame{
 		setSize(530, 280);
 		setResizable(false);
 		infoPanel = new InfoPanel();
+		setIconImage(LoginFrame.icon.getImage());
 		this.setLocation(500, 500);
 		add(infoPanel);
 	}

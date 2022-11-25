@@ -6,9 +6,10 @@ public class AdminHistoryFrame extends JFrame{
     private AdminHistoryPanel adminHistoryPanel;
 
     public AdminHistoryFrame(){
-        super("User Historic");
+        super("Admin User Historic"); // Sets title
         setSize(530, 280);
         setResizable(false);
+        setIconImage(LoginFrame.icon.getImage());
         adminHistoryPanel = new AdminHistoryPanel();
         this.setLocation(500, 500);
         add(adminHistoryPanel);
