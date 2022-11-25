@@ -19,7 +19,7 @@ public class InfoPanel extends JPanel implements ActionListener{
 			GridBagConstraints constraints = new GridBagConstraints();
 		    constraints.anchor = GridBagConstraints.WEST;
 		    scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
-		    goBackButton = new JButton		("Return");
+		    goBackButton = new JButton("Return");
 		    
 		   
 		    
@@ -43,7 +43,6 @@ public class InfoPanel extends JPanel implements ActionListener{
 		JButton buttonPressed = (JButton) e.getSource();
 
 		if (buttonPressed.equals(goBackButton)){
-			System.out.println("returning!");
 			back = true;
 			
 		}
