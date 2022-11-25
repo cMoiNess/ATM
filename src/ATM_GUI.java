@@ -959,11 +959,17 @@ public class ATM_GUI implements Serializable {
 
                             }else {
 
-                                adminCreateFrame.setIncorrect(); // Display an error
+                                adminCreateFrame.setIncorrectPassword(); // Display an error
                                 adminCreateFrame.setClear(); // Clears Window
                                 adminCreateFrame.setAcceptFalse(); // Drops the flag
                             }
 
+                        } else {
+                         
+                                adminCreateFrame.setIncorrect(); // Display an error
+                                adminCreateFrame.setClear(); // Clears Window
+                                adminCreateFrame.setAcceptFalse(); // Drops the flag
+                            
                         }
 
                     }
