@@ -23,52 +23,28 @@ Les comptes Admin déjà initialisés sont les suivants (login | mot de passe) :
 Attention !!
 Le mot de passe doit être de 4 chiffres.
 
+#
 
+#
 
+#
 
+#
 
+#
 
+#
 
+#
 
+#
 
+#
 
+#
 
+#
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#
 
 UwU
