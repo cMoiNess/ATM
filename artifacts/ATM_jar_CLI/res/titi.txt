@@ -1,7 +1,0 @@
-Opération fait par un admin | Reçu : 5.0 | Solde avant réception : 0.0 | Solde après réception : 5.0 | Transmetteur : tata
-Opération fait par l'admin : admin | Dépôt : 10.0 | Solde avant dépôt : 5.0 | Solde après dépôt : 15.0
-Opération fait par l'admin : admin | Transfert : 15.0 | Solde avant transfert : 15.0 | Solde après transfert : 0.0 | Bénéficiare : tata
-Opération fait par l'admin : admin | Dépôt : 10.0 | Solde avant dépôt : 0.0 | Solde après dépôt : 10.0
-Opération fait par l'admin : admin | Retrait : 5.0 | Solde avant retrait : 10.0 | Solde après retrait : 5.0
-Opération fait par l'admin : admin | Transfert : 5.0 | Solde avant transfert : 5.0 | Solde après transfert : 0.0 | Bénéficiare : tata
-Reçu : 10.0 | Solde avant réception : 0.0 | Solde après réception : 10.0 | Transmetteur : Yanso
