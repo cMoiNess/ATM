@@ -7,12 +7,12 @@ public class Main {
 
         // Uncommented the two next lines for the CLI version (remember to comment GUI's lines)
 
-        //CLI cli = new CLI();
-        //cli.powerCLI();
+        CLI cli = new CLI();
+        cli.powerCLI();
 
         // Uncommented the two next lines for the GUI version (remember to comment CLI's lines)
 
-        ATM_GUI GUI = new ATM_GUI();
-        GUI.powerGUI();
+        //ATM_GUI GUI = new ATM_GUI();
+        //GUI.powerGUI();
     }
 }
