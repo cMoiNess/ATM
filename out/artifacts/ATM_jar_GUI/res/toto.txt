@@ -1,0 +1,13 @@
+Retrait : 5.0 | Solde avant retrait : 10.0 | Solde après retrait : 5.0
+Retrait : 5.0 | Solde avant retrait : 5.0 | Solde après retrait : 0.0
+Transfert : 5.0 | Solde avant transfert : 5.0 | Solde après transfert : 0.0 | Bénéficiare : tata
+Dépôt : 10.0 | Solde avant dépôt : 0.0 | Solde après dépôt : 10.0
+Transfert : 10.0 | Solde avant transfert : 10.0 | Solde après transfert : 0.0 | Bénéficiare : tata
+Reçu : 10.0 | Solde avant réception : 0.0 | Solde après réception : 10.0 | Transmetteur : prout
+Dépôt : 10.0 | Solde avant dépôt : 10.0 | Solde après dépôt : 20.0
+Dépôt : 10.0 | Solde avant dépôt : 20.0 | Solde après dépôt : 30.0
+Dépôt : 10.0 | Solde avant dépôt : 30.0 | Solde après dépôt : 40.0
+Dépôt : 10.0 | Solde avant dépôt : 40.0 | Solde après dépôt : 50.0
+Dépôt : 10.0 | Solde avant dépôt : 50.0 | Solde après dépôt : 60.0
+Dépôt : 10.0 | Solde avant dépôt : 60.0 | Solde après dépôt : 70.0
+Opération fait par un admin | Transfert : 70.0 | Solde avant transfert : 70.0 | Solde après transfert : 0.0 | Bénéficiare : prout
