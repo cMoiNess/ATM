@@ -34,7 +34,7 @@ public class Admin extends BankAccount{
             user.balance -= value; // Withdrawal of requested value
             System.out.println("Vous avez retiré : " + value + "euro.s !");
             FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
-            String fileName = user.getLogin() + ".txt";
+            String fileName = "res\\" + user.getLogin() + ".txt";
             fileGestion.createFileWithVerif(fileName); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens.
             fileGestion.writeToFileLineBreak(fileName, "Opération faite par l'admin : " + this.getLogin() + " | Retrait : " + value + " | " + "Solde avant retrait : "
                     + oldBalance + " | " + "Solde après retrait : " + user.getBalance()); // We save the transaction in the previous file
@@ -52,7 +52,7 @@ public class Admin extends BankAccount{
             user.balance += value; 
             System.out.println("Vous avez déposé : " + value + "euro.s !");
             FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
-            String fileName = user.getLogin() + ".txt";
+            String fileName = "res\\" + user.getLogin() + ".txt";
             fileGestion.createFileWithVerif(fileName); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens.
             fileGestion.writeToFileLineBreak(fileName, "Opération faite par l'admin : " + this.getLogin() + " | Dépôt : " + value + " | " + "Solde avant dépôt : " + oldBalance + " | " + "Solde après dépôt : " + user.getBalance()); // We save the transaction in the previous file
         }
@@ -72,19 +72,19 @@ public class Admin extends BankAccount{
             System.out.println("Vous avez transféré : " + value + "euro.s !\n" +
                     "Vous avez transféré votre argent au compte suivant : " + beneficiary.getLogin());
             FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
-            String fileName = transmitter.getLogin() + ".txt";
+            String fileName = "res\\" + transmitter.getLogin() + ".txt";
             fileGestion.createFileWithVerif(fileName); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens. For the transmitter's account
             fileGestion.writeToFileLineBreak(fileName, "Opération faite par l'admin : " + this.getLogin() + " | Transfert : " + value + " | " + "Solde avant transfert : "
                     + oldBalanceTransmitter + " | " + "Solde après transfert : " + transmitter.getBalance() + " | " + "Bénéficiaire : " + beneficiary.getLogin()); // We save the transaction in the previous file
-            fileGestion.createFileWithVerif(beneficiary.getLogin() + ".txt"); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens. For the beneficiary's account
-            fileGestion.writeToFileLineBreak(beneficiary.getLogin() + ".txt", "Opération faite par un admin | Reçu : " + value + " | " + "Solde avant réception : "
+            fileGestion.createFileWithVerif("res\\" + beneficiary.getLogin() + ".txt"); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens. For the beneficiary's account
+            fileGestion.writeToFileLineBreak("res\\" + beneficiary.getLogin() + ".txt", "Opération faite par un admin | Reçu : " + value + " | " + "Solde avant réception : "
                     + oldBalanceBeneficiary + " | " + "Solde après réception : " + beneficiary.getBalance() + " | " + "Transmetteur : " + transmitter.getLogin()); // We save the transaction in the previous file
         }
     }
 
     public String historyOfTransactionOtherAccount(User user) {
         FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
-        String fileName = user.getLogin() + ".txt";
+        String fileName = "res\\" + user.getLogin() + ".txt";
 
         // We test if the user has already made transactions
         if (fileGestion.fileExist(fileName)) {

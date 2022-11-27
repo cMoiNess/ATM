@@ -4,7 +4,7 @@ public class LoginFrame extends JFrame {
 	
 	private LoginPanel loginPanel;
 
-	static ImageIcon icon = new ImageIcon("atmIcon.png");
+	static ImageIcon icon = new ImageIcon("res\\atmIcon.png");
 
 	private static boolean login;
 

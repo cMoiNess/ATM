@@ -18,8 +18,8 @@ public class CLI implements Serializable {
         int nbIndex = 0;
         ArrayList<User> listUser = new ArrayList<User>();
         ArrayList<Admin> listAdmin = new ArrayList<Admin>();
-        listUser = fileGestion.readUsersFromFile("user.txt");
-        listAdmin = fileGestion.readAdminsFromFile("admin.txt");
+        listUser = fileGestion.readUsersFromFile("res\\user.txt");
+        listAdmin = fileGestion.readAdminsFromFile("res\\admin.txt");
 
         while (conditionCreationCompte) { // First choice from CLI (either connect to already existing account or create account)
             System.out.println("Choisir une action : \n" +
@@ -33,17 +33,17 @@ public class CLI implements Serializable {
                     String valueLogin = scanner.next();
                     System.out.println("Entrer votre pin (nombre à 4 chiffres) :"); //Wait for password/pin
                     int valuePin = scanner.nextInt();
-                    boolean accountOkOrNok = fileGestion.verifAccountLoginAndPassword("user.txt", valueLogin, valuePin); //Boolean to check if user and password association matches user database file
-                    boolean accountAdminOkOrNok = fileGestion.verifAccountLoginAndPassword("admin.txt", valueLogin, valuePin); //Boolean to check if user and password association matches admin database file
+                    boolean accountOkOrNok = fileGestion.verifAccountLoginAndPassword("res\\user.txt", valueLogin, valuePin); //Boolean to check if user and password association matches user database file
+                    boolean accountAdminOkOrNok = fileGestion.verifAccountLoginAndPassword("res\\admin.txt", valueLogin, valuePin); //Boolean to check if user and password association matches admin database file
                     if (accountOkOrNok) { 
                         System.out.println("Bienvenue : " + valueLogin + " !"); //Welcome banner with login
-                        nbIndex = fileGestion.findIndexAccount("user.txt", valueLogin); //User account information stored in index
+                        nbIndex = fileGestion.findIndexAccount("res\\user.txt", valueLogin); //User account information stored in index
                         conditionCreationCompte = false; //reset of variable
                         conditionUtilisationCompteAdmin = false; //reset of variable
                         break;
                     } else if (accountAdminOkOrNok) {
                         System.out.println("Bienvenue : " + valueLogin + " !"); //Welcome banner with login
-                        nbIndex = fileGestion.findIndexAccount("admin.txt", valueLogin); //Admin account information stored in index
+                        nbIndex = fileGestion.findIndexAccount("res\\admin.txt", valueLogin); //Admin account information stored in index
                         conditionCreationCompte = false; //reset of variable
                         conditionUtilisationCompte = false; //reset of variable
                         break;
@@ -61,14 +61,14 @@ public class CLI implements Serializable {
                     System.out.println("Entrer votre nouveau pin (nombre à 4 chiffres) :"); //Wait for password/pin
                     int valueNewPin = scanner.nextInt();
 
-                    boolean accountExistOrNot = fileGestion.verifAccountExist("user.txt", valueNewLogin); //Boolean to check whether the user exists or not
-                    boolean accountExistOrNotAdmin = fileGestion.verifAccountExist("admin.txt", valueNewLogin); //Boolean to check whether the admin exists or not
+                    boolean accountExistOrNot = fileGestion.verifAccountExist("res\\user.txt", valueNewLogin); //Boolean to check whether the user exists or not
+                    boolean accountExistOrNotAdmin = fileGestion.verifAccountExist("res\\admin.txt", valueNewLogin); //Boolean to check whether the admin exists or not
                     if (accountExistOrNot || accountExistOrNotAdmin) {
                         System.out.println("Le compte existe déjà, merci de choisir un login différent ");
                     } else {
                         listUser.add(new User(valueNewLogin, valueNewPin)); //Creation of a new user
-                        fileGestion.writeToFileAnObject("user.txt", listUser.get(listUser.size() - 1)); //Add this user the database
-                        nbIndex = fileGestion.findIndexAccount("user.txt", valueNewLogin); //User account information stored in index
+                        fileGestion.writeToFileAnObject("res\\user.txt", listUser.get(listUser.size() - 1)); //Add this user the database
+                        nbIndex = fileGestion.findIndexAccount("res\\user.txt", valueNewLogin); //User account information stored in index
                         System.out.println("Création du compte...");
                         System.out.println("Votre compte est ouvert !");
                         System.out.println("Bienvenue : " + valueNewLogin + " !"); //Welcome banner with login
@@ -76,11 +76,6 @@ public class CLI implements Serializable {
                         break;
                     }
 
-
-
-                    /* Inscrire le nouvel utilisateur si le login n'est pas déjà existant + le connecte
-                       si non, message d'erreur et repasse dans la boucle
-                     */
 
 
                     break;
@@ -119,9 +114,9 @@ public class CLI implements Serializable {
                     Double valueTransfer = scanner.nextDouble();
                     System.out.println("Entrer le nom du compte à créditer"); //Wait for account login to transfer
                     String valueCredit = scanner.next();
-                    boolean accountOkOrNok = fileGestion.verifAccountExist("user.txt", valueCredit); //Boolean to check if user and password association matches user database file
+                    boolean accountOkOrNok = fileGestion.verifAccountExist("res\\user.txt", valueCredit); //Boolean to check if user and password association matches user database file
                     if (accountOkOrNok) {
-                        int nbIndexCredit = fileGestion.findIndexAccount("user.txt", valueCredit); //User account information stored in index
+                        int nbIndexCredit = fileGestion.findIndexAccount("res\\user.txt", valueCredit); //User account information stored in index
                         listUser.get(nbIndex).transfer(valueTransfer, listUser.get(nbIndexCredit));
                         break;
                     } else {
@@ -134,18 +129,18 @@ public class CLI implements Serializable {
                     break;
 
                 case 5 :
-                    listUser.get(nbIndex).historyOfTransaction(); //Check history of transaction
+                    System.out.println(listUser.get(nbIndex).historyOfTransaction()); //Check history of transaction
                     break;
 
                 case 6:
                     System.out.println("Déconnexion !");
-                    fileGestion.writeToFileObjects("user.txt", listUser); //Update database
+                    fileGestion.writeToFileObjects("res\\user.txt", listUser); //Update database
                     powerCLI();
                     break;
 
                 case 7:
                     System.out.println("Au revoir !");
-                    fileGestion.writeToFileObjects("user.txt", listUser); //Update database
+                    fileGestion.writeToFileObjects("res\\user.txt", listUser); //Update database
                     System.exit(0);
 
             }
@@ -171,9 +166,9 @@ public class CLI implements Serializable {
                     int valueDeposit = scanner.nextInt();
                     System.out.println("Entrer le nom du compte à créditer");
                     String valueCreditDeposit = scanner.next();
-                    boolean accountOkOrNokDeposit = fileGestion.verifAccountExist("user.txt", valueCreditDeposit);
+                    boolean accountOkOrNokDeposit = fileGestion.verifAccountExist("res\\user.txt", valueCreditDeposit);
                     if (accountOkOrNokDeposit) {
-                        int nbIndexCredit = fileGestion.findIndexAccount("user.txt", valueCreditDeposit);
+                        int nbIndexCredit = fileGestion.findIndexAccount("res\\user.txt", valueCreditDeposit);
                         listAdmin.get(nbIndex).depositOtherAccount(valueDeposit, listUser.get(nbIndexCredit));
                         break;
                     } else {
@@ -187,9 +182,9 @@ public class CLI implements Serializable {
                     System.out.println("Entrer le nom du compte sur lequel vous voulez retirer de l'argent");
                     String valueCreditWithdrawal = scanner.next();
 
-                    boolean accountOkOrNokWithdrawal = fileGestion.verifAccountExist("user.txt", valueCreditWithdrawal);
+                    boolean accountOkOrNokWithdrawal = fileGestion.verifAccountExist("res\\user.txt", valueCreditWithdrawal);
                     if (accountOkOrNokWithdrawal) {
-                        int nbIndexCredit = fileGestion.findIndexAccount("user.txt", valueCreditWithdrawal);
+                        int nbIndexCredit = fileGestion.findIndexAccount("res\\user.txt", valueCreditWithdrawal);
                         listAdmin.get(nbIndex).withdrawalOtherAccount(valueWithdrawal, listUser.get(nbIndexCredit));
                         break;
                     } else {
@@ -198,7 +193,6 @@ public class CLI implements Serializable {
                     }
 
                 case 3 :
-                    // A faire
                     System.out.println("Entrer la valeur à transférer");
                     Double valueTransfer = scanner.nextDouble();
 
@@ -208,12 +202,12 @@ public class CLI implements Serializable {
                     String valueCreditBeneficiary = scanner.next();
 
 
-                    boolean accountOkOrNokTransmitter = fileGestion.verifAccountExist("user.txt", valueCreditTransmitter);
-                    boolean accountOkOrNokBeneficiary = fileGestion.verifAccountExist("user.txt", valueCreditBeneficiary);
+                    boolean accountOkOrNokTransmitter = fileGestion.verifAccountExist("res\\user.txt", valueCreditTransmitter);
+                    boolean accountOkOrNokBeneficiary = fileGestion.verifAccountExist("res\\user.txt", valueCreditBeneficiary);
 
                     if (accountOkOrNokTransmitter && accountOkOrNokBeneficiary) {
-                        int nbIndexCreditTransmitter = fileGestion.findIndexAccount("user.txt", valueCreditTransmitter);
-                        int nbIndexCreditBeneficiary = fileGestion.findIndexAccount("user.txt", valueCreditBeneficiary);
+                        int nbIndexCreditTransmitter = fileGestion.findIndexAccount("res\\user.txt", valueCreditTransmitter);
+                        int nbIndexCreditBeneficiary = fileGestion.findIndexAccount("res\\user.txt", valueCreditBeneficiary);
 
                         listAdmin.get(nbIndex).transferOtherAccount(valueTransfer, listUser.get(nbIndexCreditTransmitter), listUser.get(nbIndexCreditBeneficiary));
                         System.out.println("Transfert effectué !");
@@ -227,9 +221,9 @@ public class CLI implements Serializable {
                     System.out.println("Entrer le nom du compte pour lequel vous voulez voir le solde");
                     String valueCreditSolde = scanner.next();
 
-                    boolean accountOkOrNokSolde = fileGestion.verifAccountExist("user.txt", valueCreditSolde);
+                    boolean accountOkOrNokSolde = fileGestion.verifAccountExist("res\\user.txt", valueCreditSolde);
                     if (accountOkOrNokSolde) {
-                        int nbIndexCredit = fileGestion.findIndexAccount("user.txt", valueCreditSolde);
+                        int nbIndexCredit = fileGestion.findIndexAccount("res\\user.txt", valueCreditSolde);
                         System.out.println("Voici le solde du compte souhaité : " + listUser.get(nbIndexCredit).getBalance());
                         break;
                     } else {
@@ -240,10 +234,10 @@ public class CLI implements Serializable {
                 case 5 :
                     System.out.println("Entrer le nom du compte pour lequel vous voulez voir l'historique");
                     String valueCreditHistory = scanner.next();
-                    boolean accountOkOrNokHistory = fileGestion.verifAccountExist("user.txt", valueCreditHistory);
+                    boolean accountOkOrNokHistory = fileGestion.verifAccountExist("res\\user.txt", valueCreditHistory);
                     if (accountOkOrNokHistory) {
-                        int nbIndexCredit = fileGestion.findIndexAccount("user.txt", valueCreditHistory);
-                        listAdmin.get(nbIndex).historyOfTransactionOtherAccount(listUser.get(nbIndexCredit));
+                        int nbIndexCredit = fileGestion.findIndexAccount("res\\user.txt", valueCreditHistory);
+                        System.out.println(listAdmin.get(nbIndex).historyOfTransactionOtherAccount(listUser.get(nbIndexCredit)));
                         break;
                     } else {
                         System.out.println("Le compte bénéficiaire n'existe pas !");
@@ -254,10 +248,10 @@ public class CLI implements Serializable {
                     System.out.println("Entrer le nom du compte que vous voulez supprimer");
                     String valueCreditDelete = scanner.next();
 
-                    boolean accountOkOrNokDelete = fileGestion.verifAccountExist("user.txt", valueCreditDelete);
+                    boolean accountOkOrNokDelete = fileGestion.verifAccountExist("res\\user.txt", valueCreditDelete);
                     if (accountOkOrNokDelete) {
-                        listUser = fileGestion.eraseToFileAnObject("user.txt", listUser, valueCreditDelete);
-                        fileGestion.writeToFileObjects("user.txt", listUser);
+                        listUser = fileGestion.eraseToFileAnObject("res\\user.txt", listUser, valueCreditDelete);
+                        fileGestion.writeToFileObjects("res\\user.txt", listUser);
 
                         System.out.println("Supression du compte");
                         break;
@@ -274,34 +268,34 @@ public class CLI implements Serializable {
                     System.out.println("Entrer le pin du nouvel administrateur (nombre à 4 chiffres) :");
                     int valueNewPin = scanner.nextInt();
 
-                    boolean accountExistOrNot = fileGestion.verifAccountExist("user.txt", valueNewLogin);
-                    boolean accountExistOrNotAdmin = fileGestion.verifAccountExist("admin.txt", valueNewLogin);
+                    boolean accountExistOrNot = fileGestion.verifAccountExist("res\\user.txt", valueNewLogin);
+                    boolean accountExistOrNotAdmin = fileGestion.verifAccountExist("res\\admin.txt", valueNewLogin);
                     if (accountExistOrNot || accountExistOrNotAdmin) {
                         System.out.println("Le compte existe déjà, merci de choisir un login différent ");
                         break;
                     } else {
                         listAdmin.add(new Admin(valueNewLogin, valueNewPin));
-                        fileGestion.writeToFileAnObjectAdmin("admin.txt", listAdmin.get(listAdmin.size() - 1));
+                        fileGestion.writeToFileAnObjectAdmin("res\\admin.txt", listAdmin.get(listAdmin.size() - 1));
                         System.out.println("Création du compte...");
                         System.out.println("Le nouveau compte admin est ouvert !");
                         break;
                     }
 
                 case 8:
-                    fileGestion.printUsersForAdmin("user.txt");
+                    System.out.println(fileGestion.printUsersForAdmin("res\\user.txt"));
                     break;
 
                 case 9:
                     System.out.println("Déconnexion !");
-                    fileGestion.writeToFileObjects("user.txt", listUser);
-                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin);
+                    fileGestion.writeToFileObjects("res\\user.txt", listUser);
+                    fileGestion.writeToFileObjectsAdmin("res\\admin.txt", listAdmin);
                     powerCLI();
                     break;
 
                 case 10:
                     System.out.println("Au revoir !");
-                    fileGestion.writeToFileObjects("user.txt", listUser);
-                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin);
+                    fileGestion.writeToFileObjects("res\\user.txt", listUser);
+                    fileGestion.writeToFileObjectsAdmin("res\\admin.txt", listAdmin);
                     System.exit(0);
 
             }

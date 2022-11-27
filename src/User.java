@@ -63,7 +63,7 @@ public class User extends BankAccount implements Serializable {
             balance -= value; // We withdraw the money
             System.out.println("Vous avez retiré : " + value + "euro.s !");
             FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
-            String fileName = getLogin() + ".txt";
+            String fileName = "res\\" + getLogin() + ".txt";
             fileGestion.createFileWithVerif(fileName); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens.
             fileGestion.writeToFileLineBreak(fileName, "Retrait : " + value + " | " + "Solde avant retrait : "
                     + oldBalance + " | " + "Solde après retrait : " + balance); // We save the transaction in the previous file
@@ -80,7 +80,7 @@ public class User extends BankAccount implements Serializable {
             balance += value; // We deposit the money
             System.out.println("Vous avez dépôser : " + value + "euro.s !");
             FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
-            String fileName = getLogin() + ".txt";
+            String fileName = "res\\" + getLogin() + ".txt";
             fileGestion.createFileWithVerif(fileName); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens.
             fileGestion.writeToFileLineBreak(fileName, "Dépôt : " + value + " | " + "Solde avant dépôt : " + oldBalance + " | " + "Solde après dépôt : " + balance); // We save the transaction in the previous file
         }
@@ -102,19 +102,19 @@ public class User extends BankAccount implements Serializable {
             System.out.println("Vous avez transféré : " + value + "euro.s !\n" +
                     "Vous avez transféré votre argent au compte suivant : " + beneficiary.getLogin());
             FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
-            String fileName = getLogin() + ".txt";
+            String fileName = "res\\" + getLogin() + ".txt";
             fileGestion.createFileWithVerif(fileName); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens. For the transmitter's account
             fileGestion.writeToFileLineBreak(fileName, "Transfert : " + value + " | " + "Solde avant transfert : "
                     + oldBalance + " | " + "Solde après transfert : " + balance + " | " + "Bénéficiare : " + beneficiary.getLogin()); // We save the transaction in the previous file
-            fileGestion.createFileWithVerif(beneficiary.getLogin() + ".txt"); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens. For the beneficiary's account
-            fileGestion.writeToFileLineBreak(beneficiary.getLogin() + ".txt", "Reçu : " + value + " | " + "Solde avant réception : "
+            fileGestion.createFileWithVerif("res\\" + beneficiary.getLogin() + ".txt"); // Creation of a file of the form "[login].txt" if the file does not exist, otherwise nothing happens. For the beneficiary's account
+            fileGestion.writeToFileLineBreak("res\\" + beneficiary.getLogin() + ".txt", "Reçu : " + value + " | " + "Solde avant réception : "
                     + oldBalanceBeneficiary + " | " + "Solde après réception : " + beneficiary.balance + " | " + "Transmetteur : " + this.login); // We save the transaction in the previous file
         }
     }
 
     public String historyOfTransaction() {
         FileGestion fileGestion = new FileGestion(); // Object that will allow us to save the transaction
-        String fileName = getLogin() + ".txt";
+        String fileName = "res\\" + getLogin() + ".txt";
 
         // We test if the user has already made transactions
         if (fileGestion.fileExist(fileName)) {

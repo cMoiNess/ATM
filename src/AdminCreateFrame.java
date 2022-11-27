@@ -42,6 +42,8 @@ public class AdminCreateFrame extends JFrame{
 
     public void setSuccess(){adminCreatePanel.setSuccess();}
 
+    public void setIncorrectPassword(){adminCreatePanel.setIncorrectPassword();}
+
     public void setIncorrectUsername(){adminCreatePanel.setIncorrectUsername();}
 
     public void setClear(){

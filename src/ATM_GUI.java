@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class ATM_GUI implements Serializable {
 
-
+    private static String userTxt = "res\\user.txt";
+    private static String adminTxt = "res\\admin.txt";
+    
     public ATM_GUI(){}
 
     public static boolean isNumeric(String str) { // Method to make sure a string is a double
@@ -25,8 +27,8 @@ public class ATM_GUI implements Serializable {
         ArrayList<User> listUser = new ArrayList<User>();
         ArrayList<Admin> listAdmin = new ArrayList<Admin>();
 
-        listUser = fileGestion.readUsersFromFile("user.txt");
-        listAdmin = fileGestion.readAdminsFromFile("admin.txt");
+        listUser = fileGestion.readUsersFromFile(userTxt);
+        listAdmin = fileGestion.readAdminsFromFile(adminTxt);
 
 
 
@@ -94,19 +96,19 @@ public class ATM_GUI implements Serializable {
 
                         if(isNumeric(loginFrame.getPassword())){
 
-                            boolean userOkOrNok = fileGestion.verifAccountLoginAndPassword("user.txt", loginFrame.getName(), Integer.valueOf(loginFrame.getPassword())); //Boolean to check if user and password association matches user database file
-                            boolean adminOkOrNok = fileGestion.verifAccountLoginAndPassword("admin.txt", loginFrame.getName(), Integer.valueOf(loginFrame.getPassword())); //Boolean to check if user and password association matches admin database file
+                            boolean userOkOrNok = fileGestion.verifAccountLoginAndPassword(userTxt, loginFrame.getName(), Integer.valueOf(loginFrame.getPassword())); //Boolean to check if user and password association matches user database file
+                            boolean adminOkOrNok = fileGestion.verifAccountLoginAndPassword(adminTxt, loginFrame.getName(), Integer.valueOf(loginFrame.getPassword())); //Boolean to check if user and password association matches admin database file
 
                             if (userOkOrNok) {
 
-                                nbIndex = fileGestion.findIndexAccount("user.txt", loginFrame.getName()); //User account information stored in index
+                                nbIndex = fileGestion.findIndexAccount(userTxt, loginFrame.getName()); //User account information stored in index
                                 selectionFrame.setID(loginFrame.getName()); // Method used to display the user's name on the selection window
                                 selectionFrame.setClear(); // Clears old informations displayed on the selection window
                                 loginFrame.setIncorrectClear(); // Clears any errors
                                 action = ACTION_SELECT; // Jump to the selection case
                                 LoginPanel.setLoginFalse(); // sets login request to false
                             } else if (adminOkOrNok) {
-                                nbIndex = fileGestion.findIndexAccount("admin.txt", loginFrame.getName()); //Admin account information stored in index
+                                nbIndex = fileGestion.findIndexAccount(adminTxt, loginFrame.getName()); //Admin account information stored in index
                                 adminSelectionFrame.setID(loginFrame.getName()); // Method used to display the admin's name on the admin selection window
                                 loginFrame.setIncorrectClear();
                                 action = ACTION_ADMIN_SELECT; // Jump to the admin selection case
@@ -154,8 +156,8 @@ public class ATM_GUI implements Serializable {
 
                         if(isNumeric(registerFrame.getPassword())){ // If the password is a 4 digit number
 
-                            boolean userOkOrNok = fileGestion.verifAccountExist("user.txt", registerFrame.getName());  //Boolean to check if user association matches user database file
-                            boolean adminOkOrNok = fileGestion.verifAccountExist("admin.txt", registerFrame.getName());//Boolean to check if user association matches admin database file
+                            boolean userOkOrNok = fileGestion.verifAccountExist(userTxt, registerFrame.getName());  //Boolean to check if user association matches user database file
+                            boolean adminOkOrNok = fileGestion.verifAccountExist(adminTxt, registerFrame.getName());//Boolean to check if user association matches admin database file
                             if (userOkOrNok || adminOkOrNok) { // If any account has the same name
 
                                 registerFrame.setIncorrectUsername(); // Display an error
@@ -165,8 +167,8 @@ public class ATM_GUI implements Serializable {
                             }else if(!(userOkOrNok) && !(adminOkOrNok)){ // If no account match
 
                                 listUser.add(new User(registerFrame.getName(), Integer.valueOf(registerFrame.getPassword()))); //Creation of a new user
-                                fileGestion.writeToFileAnObject("user.txt", listUser.get(listUser.size() - 1)); //Add this user the database
-                                nbIndex = fileGestion.findIndexAccount("user.txt", registerFrame.getName()); //User account information stored in index
+                                fileGestion.writeToFileAnObject(userTxt, listUser.get(listUser.size() - 1)); //Add this user the database
+                                nbIndex = fileGestion.findIndexAccount(userTxt, registerFrame.getName()); //User account information stored in index
                                 registerFrame.setAcceptFalse(); // Drops the flag
                                 registerFrame.setClear(); // Clears the window
                                 registerFrame.setInfoClear(); // Clears any error
@@ -240,7 +242,7 @@ public class ATM_GUI implements Serializable {
                     if (selectionFrame.getDisconnect()){
                         selectionFrame.setDisconnectFalse(); // Drops the flag
                         loginFrame.setClear(); // Clears the login window
-                        fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
+                        fileGestion.writeToFileObjects(userTxt, listUser); // Saves user info
                         action = ACTION_LOGIN;
                     }
 
@@ -276,7 +278,7 @@ public class ATM_GUI implements Serializable {
                                 depositFrame.setDepositClear();
                                 listUser.get(nbIndex).deposit(amt); // Method to add money to the user's account
                                 depositFrame.setDepositFalse(); // Drops the flag
-                                fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
+                                fileGestion.writeToFileObjects(userTxt, listUser); // Saves user info
                                 break;
                             }
                         } else if (!(isNumeric(deposit_account_amount))) { // If the value isn't numeric
@@ -328,7 +330,7 @@ public class ATM_GUI implements Serializable {
                                 withdrawFrame.setWithdrawClear();
                                 listUser.get(nbIndex).withdrawal(amt); // Method to withdraw money
                                 withdrawFrame.setWithdrawFalse(); // Drops the flag
-                                fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
+                                fileGestion.writeToFileObjects(userTxt, listUser); // Saves user info
                                 break;
                             }
                         } else if (!(isNumeric(withdraw_account_amount))) {
@@ -413,7 +415,7 @@ public class ATM_GUI implements Serializable {
 
                         } else {
 
-                            boolean accountExist = fileGestion.verifAccountExist("user.txt", account); // Check if account exists in user.txt
+                            boolean accountExist = fileGestion.verifAccountExist(userTxt, account); // Check if account exists in userTxt
                             if (isNumeric(amount) && accountExist) {
 
                                 amt = Double.parseDouble(amount);
@@ -426,12 +428,12 @@ public class ATM_GUI implements Serializable {
 
                                 } else {
 
-                                    int nbIndexCredit = fileGestion.findIndexAccount("user.txt", account);
+                                    int nbIndexCredit = fileGestion.findIndexAccount(userTxt, account);
                                     listUser.get(nbIndex).transfer(amt, listUser.get(nbIndexCredit)); // Method to transfer money to users
                                     transferFrame.setCorrectAmount();
                                     transferFrame.setTransferFalse(); // Drops the flag
                                     transferFrame.setTransferClear(); // Clears Window
-                                    fileGestion.writeToFileObjects("user.txt", listUser);
+                                    fileGestion.writeToFileObjects(userTxt, listUser);
                                     break;
 
                                 }
@@ -527,7 +529,7 @@ public class ATM_GUI implements Serializable {
                     //ADMIN LIST BUTTON IS CLICKED
                     if (adminSelectionFrame.getAdminList()){
                         adminSelectionFrame.setAdminListFalse(); // Drops the flag
-                        adminListFrame.addToDisplay(fileGestion.printUsersForAdmin("user.txt")); // Method to display every users
+                        adminListFrame.addToDisplay(fileGestion.printUsersForAdmin(userTxt)); // Method to display every users
                         action = ACTION_ADMIN_LIST;
                     }
 
@@ -536,8 +538,8 @@ public class ATM_GUI implements Serializable {
                         adminSelectionFrame.setDisconnectFalse(); // Drops the flag
                         loginFrame.setClear(); // Clears window
                         loginFrame.setIncorrectClear(); // Clears any error
-                        fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin); // Saves admin info
-                        fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
+                        fileGestion.writeToFileObjectsAdmin(adminTxt, listAdmin); // Saves admin info
+                        fileGestion.writeToFileObjects(userTxt, listUser); // Saves user info
                         action = ACTION_LOGIN;
                     }
 
@@ -584,7 +586,7 @@ public class ATM_GUI implements Serializable {
 
                         } else {
 
-                            boolean accountExist = fileGestion.verifAccountExist("user.txt", account);
+                            boolean accountExist = fileGestion.verifAccountExist(userTxt, account);
                             if (isNumeric(amount) && accountExist) {
 
                                 amt = Double.parseDouble(amount);
@@ -597,13 +599,13 @@ public class ATM_GUI implements Serializable {
 
                                 } else {
 
-                                    int nbIndexCredit = fileGestion.findIndexAccount("user.txt", account);
+                                    int nbIndexCredit = fileGestion.findIndexAccount(userTxt, account);
                                     listAdmin.get(nbIndex).depositOtherAccount(amt, listUser.get(nbIndexCredit)); // Method that allows admin to send money to users
                                     adminDepositFrame.setCorrectAmount();
                                     adminDepositFrame.setAdminDepositFalse(); // Drops the flag
                                     adminDepositFrame.setDepositClear(); // Clears Window
-                                    fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
-                                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin); // Saves admin info
+                                    fileGestion.writeToFileObjects(userTxt, listUser); // Saves user info
+                                    fileGestion.writeToFileObjectsAdmin(adminTxt, listAdmin); // Saves admin info
                                     break;
 
                                 }
@@ -677,11 +679,11 @@ public class ATM_GUI implements Serializable {
 
                         } else {
 
-                            boolean accountExist = fileGestion.verifAccountExist("user.txt", account);
+                            boolean accountExist = fileGestion.verifAccountExist(userTxt, account);
                             if (isNumeric(amount) && accountExist) {
 
                                 amt = Double.parseDouble(amount);
-                                int nbIndexCredit = fileGestion.findIndexAccount("user.txt", account);
+                                int nbIndexCredit = fileGestion.findIndexAccount(userTxt, account);
 
                                 if ((amt <= 0) || listUser.get(nbIndexCredit).getBalance() - amt < 0) {
 
@@ -696,8 +698,8 @@ public class ATM_GUI implements Serializable {
                                     adminWithdrawFrame.setCorrectAmount();
                                     adminWithdrawFrame.setAdminWithdrawFalse(); // Drops the flag
                                     adminWithdrawFrame.setWithdrawClear(); // Clears Window
-                                    fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
-                                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin); // Saves admin info
+                                    fileGestion.writeToFileObjects(userTxt, listUser); // Saves user info
+                                    fileGestion.writeToFileObjectsAdmin(adminTxt, listAdmin); // Saves admin info
                                     break;
 
                                 }
@@ -760,15 +762,15 @@ public class ATM_GUI implements Serializable {
 
                         }else {
 
-                            boolean withdrawAccountExist = fileGestion.verifAccountExist("user.txt", withdrawAccount);
-                            boolean depositAccountExist = fileGestion.verifAccountExist("user.txt", depositAccount);
+                            boolean withdrawAccountExist = fileGestion.verifAccountExist(userTxt, withdrawAccount);
+                            boolean depositAccountExist = fileGestion.verifAccountExist(userTxt, depositAccount);
 
                             if (isNumeric(amount) && withdrawAccountExist && depositAccountExist) {
 
                                 amt = Double.parseDouble(amount);
 
-                                int nbIndexCreditTransmitter = fileGestion.findIndexAccount("user.txt", withdrawAccount);
-                                int nbIndexCreditBeneficiary = fileGestion.findIndexAccount("user.txt", depositAccount);
+                                int nbIndexCreditTransmitter = fileGestion.findIndexAccount(userTxt, withdrawAccount);
+                                int nbIndexCreditBeneficiary = fileGestion.findIndexAccount(userTxt, depositAccount);
 
                                 if ((amt <= 0) || (listUser.get(nbIndexCreditTransmitter).getBalance() - amt< 0)) {
 
@@ -784,8 +786,8 @@ public class ATM_GUI implements Serializable {
                                     adminTransferFrame.setCorrectAmount();
                                     adminTransferFrame.setAdminTransferFalse(); // Drops the flag
                                     adminTransferFrame.setAdminTransferClear(); // Clears Window
-                                    fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
-                                    fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin); // Saves admin info
+                                    fileGestion.writeToFileObjects(userTxt, listUser); // Saves user info
+                                    fileGestion.writeToFileObjectsAdmin(adminTxt, listAdmin); // Saves admin info
                                     break;
 
                                 }
@@ -840,10 +842,10 @@ public class ATM_GUI implements Serializable {
                     if(adminBalanceFrame.getShow()){
 
                         String account = adminBalanceFrame.getUsername();
-                        boolean withdrawAccountExist = fileGestion.verifAccountExist("user.txt", account);
+                        boolean withdrawAccountExist = fileGestion.verifAccountExist(userTxt, account);
                         if(withdrawAccountExist){
 
-                            int nbIndexCredit = fileGestion.findIndexAccount("user.txt", account);
+                            int nbIndexCredit = fileGestion.findIndexAccount(userTxt, account);
                             adminBalanceFrame.addToDisplay("Balance : "+listUser.get(nbIndexCredit).getBalance()); // Method to display the user's balance
                             adminBalanceFrame.setShowFalse(); // Drops the flag
                             adminBalanceFrame.clearDisplay(); // Clears Window
@@ -889,10 +891,10 @@ public class ATM_GUI implements Serializable {
                     if(adminHistoryFrame.getShow()){
 
                         String account = adminHistoryFrame.getUsername();
-                        boolean withdrawAccountExist = fileGestion.verifAccountExist("user.txt", account);
+                        boolean withdrawAccountExist = fileGestion.verifAccountExist(userTxt, account);
                         if(withdrawAccountExist){
 
-                            int nbIndexCredit = fileGestion.findIndexAccount("user.txt", account);
+                            int nbIndexCredit = fileGestion.findIndexAccount(userTxt, account);
                             adminHistoryFrame.addToDisplay(listAdmin.get(nbIndex).historyOfTransactionOtherAccount(listUser.get(nbIndexCredit))); // Method to display user's history
                             adminHistoryFrame.setShowFalse(); // Drops the flag
                             adminHistoryFrame.clearDisplay(); // Clears Window
@@ -940,8 +942,8 @@ public class ATM_GUI implements Serializable {
                         if(isNumeric(adminCreateFrame.getPassword())){
 
                             String account = adminCreateFrame.getName();
-                            boolean userOkOrNok = fileGestion.verifAccountExist("user.txt", account);
-                            boolean adminOkOrNok = fileGestion.verifAccountExist("admin.txt", account);
+                            boolean userOkOrNok = fileGestion.verifAccountExist(userTxt, account);
+                            boolean adminOkOrNok = fileGestion.verifAccountExist(adminTxt, account);
                             if ((userOkOrNok) || (adminOkOrNok)) {
 
                                 adminCreateFrame.setIncorrectUsername(); // Display an error
@@ -951,7 +953,7 @@ public class ATM_GUI implements Serializable {
                             }else if(!(userOkOrNok) && !(adminOkOrNok)){
 
                                 listAdmin.add(new Admin(adminCreateFrame.getName(), Integer.valueOf(adminCreateFrame.getPassword()))); // Method to add an admin
-                                fileGestion.writeToFileAnObjectAdmin("admin.txt", listAdmin.get(listAdmin.size() - 1)); // Add this admin to the database
+                                fileGestion.writeToFileAnObjectAdmin(adminTxt, listAdmin.get(listAdmin.size() - 1)); // Add this admin to the database
                                 adminCreateFrame.setSuccess();
                                 adminCreateFrame.setAcceptFalse(); // Drops the flag
                                 adminCreateFrame.setClear(); // Clears Window
@@ -966,10 +968,10 @@ public class ATM_GUI implements Serializable {
 
                         } else {
                          
-                                adminCreateFrame.setIncorrect(); // Display an error
+                                adminCreateFrame.setIncorrectPassword(); // Display an error
                                 adminCreateFrame.setClear(); // Clears Window
                                 adminCreateFrame.setAcceptFalse(); // Drops the flag
-                            
+
                         }
 
                     }
@@ -1003,12 +1005,12 @@ public class ATM_GUI implements Serializable {
                     //DELETE BUTTON IS CLICKED
                     if(adminDeleteFrame.getDelete()){
                         String account = adminDeleteFrame.getUsername();
-                        boolean accountOkOrNokDelete = fileGestion.verifAccountExist("user.txt", account);
+                        boolean accountOkOrNokDelete = fileGestion.verifAccountExist(userTxt, account);
 
                         if(accountOkOrNokDelete){
 
-                            listUser = fileGestion.eraseToFileAnObject("user.txt", listUser, account); // Method to delete users
-                            fileGestion.writeToFileObjects("user.txt", listUser); // Saves user info
+                            listUser = fileGestion.eraseToFileAnObject(userTxt, listUser, account); // Method to delete users
+                            fileGestion.writeToFileObjects(userTxt, listUser); // Saves user info
                             adminDeleteFrame.setDeleteFalse(); // Drops the flag
                             adminDeleteFrame.setSuccess();
 
@@ -1058,8 +1060,8 @@ public class ATM_GUI implements Serializable {
             }
 
         }
-        fileGestion.writeToFileObjects("user.txt", listUser);
-        fileGestion.writeToFileObjectsAdmin("admin.txt", listAdmin);
+        fileGestion.writeToFileObjects(userTxt, listUser);
+        fileGestion.writeToFileObjectsAdmin(adminTxt, listAdmin);
         System.exit(0);
 
     }
